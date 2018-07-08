@@ -1,0 +1,90 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+img {
+	max-width: 30%;
+	height: auto;
+}
+
+/***************Nav Bar********************/
+
+.nav-bullets {
+	padding: 0;
+	list-style: none;
+}
+
+.nav-bullets li {
+	display: inline-block;
+	margin: 0.5em;
+}
+
+.nav-bullets a {
+	text-decoration: none;
+}
+
+/****************Home page*****************/
+.main-home {
+	height: 100vh;
+	width: 100vw;
+}
+
+.main-home h1 {
+	margin: 3em 1em;
+}
+
+.images-container {
+	background-color: #b8b8b8;
+}
+
+@media (min-width: 60rem) {
+	.main-home h1 {
+		position: absolute;
+		margin: 3em 1em;
+		font-size: 4em;
+		color: #ffffff;
+	}
+}
+
+@media (min-width: 92rem) {
+	.main-home h1 {
+		position: absolute;
+		margin: 5em 1em;
+		font-size: 5em;
+		color: #ffffff;
+	}
+}
+
+/***************Location*****************/
+
+.home-location {
+	height: 100vh;
+	width: 100vw;
+}
+
+/***************Directions****************/
+
+.home-directions {
+	height: 100vh;
+	width: 100vw;
+}
+
+/**************Weather***************/
+
+.home-weather {
+	height: 100vh;
+	width: 100vw;
+}
+
+/***************Pit - Stops****************/
+
+.home-pit-stops {
+	height: 100vh;
+	width: 100vw;
+}
