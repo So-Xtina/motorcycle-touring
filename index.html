@@ -11,138 +11,33 @@
 
 <body>
     <header>
-        <h1>The Grand Tour</h1>
-        <nav class="nav-menu">
-            <ul class="nav-bullets">
-                <li>
-                    <a href="">Locations</a>
-                </li>
-                <li>
-                    <a href="">Weather</a>
-                </li>
-                <li>
-                    <a href="">Pit-Stops</a>
-                </li>
-            </ul>
-        </nav>
+        <h1 class="title">The Grand Tour</h1>
+        <h3 class="detail">Welcome to the Grand Motorcycle Tour, where you will find all your travel needs.</h3>
     </header>
 
-    <section class="main-home">
-        <h1>Welcome to the Grand Motorcycle Tour, where you will find all your traveling needs!</h1>
-        <div class="images-container">
-            <img src="images/pexels-photo-826809.jpeg" alt="">
-            <img src="images/pexels-photo-755706.jpeg" alt="">
-            <img src="images/pexels-photo-301584.jpeg" alt="">
-            <img src="images/pexels-photo-1133505.jpeg" alt="">
-            <img src="images/pexels-photo-272254.jpeg" alt="">
-            <img src="images/pexels-photo-128234.jpeg" alt="">
-            <img src="images/night-camera-lens-map.jpg" alt="">
-            <img src="images/pexels-photo-533671.jpeg" alt="">
-            <img src="images/pexels-photo-434446.jpeg" alt="">
-        </div>
-    </section>
-
-    <section class="home-location">
-        <h1>Locations</h1>
-        <nav class="nav-menu">
-            <ul class="nav-bullets">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li>
-                    <a href="">Directions</a>
-                </li>
-                <li>
-                    <a href="">Weather</a>
-                </li>
-                <li>
-                    <a href="">Pit-Stops</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="locations-container">
-            <div class="location-map"></div>
-            <div class="location-search"></div>
-            <div class="location-finds"></div>
-        </div>
-    </section>
-
-    <section class="home-directions">
-        <h1>Directions</h1>
-        <nav class="nav-menu">
-            <ul class="nav-bullets">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li>
-                    <a href="">Locations</a>
-                </li>
-                <li>
-                    <a href="">Weather</a>
-                </li>
-                <li>
-                    <a href="">Pit-Stops</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="direction-container">
-            <div class="direction-map"></div>
-            <div class="direction-search"></div>
-            <div class="direction-finds"></div>
-        </div>
-    </section>
-
-    <section class="home-weather">
-        <h1>Weather</h1>
-        <nav class="nav-menu">
-            <ul class="nav-bullets">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li>
-                    <a href="">Locations</a>
-                </li>
-                <li>
-                    <a href="">Directions</a>
-                </li>
-                <li>
-                    <a href="">Pit-Stops</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="weather-container">
-            <div class="weather-search"></div>
-            <div class="weather-find"></div>
-        </div>
-    </section>
-
-    <section class="home-pit-stops">
-        <h1>Pit Stops</h1>
-        <nav class="nav-menu">
-            <ul class="nav-bullets">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li>
-                    <a href="">Locations</a>
-                </li>
-                <li>
-                    <a href="">Directions</a>
-                </li>
-                <li>
-                    <a href="">Weather</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="pit-stop-container">
-            <div class="pit-stop-map"></div>
-            <div class="pit-stop-search"></div>
-            <div class="pit-stop-finds"></div>
+    <section class="main-page">
+        <div class="container">
+            <div class="map">
+                <img src="images/pexels-photo-434446.jpeg" alt="">
+            </div>
+            <div class="results">
+                <form class="search">
+                    <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
+                    <button class="go" type="submit">Go</button>
+                </form>
+                <div class="finds">
+                    <div class="outcome">Search 1</div>
+                    <div class="outcome">Search 2</div>
+                    <div class="outcome">Search 3</div>
+                    <div class="outcome">Search 4</div>
+                    <div class="outcome">Search 5</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <Footer>
-        <h3>Copyright © 2018 The Grand Tour. All rights reserved.</h3>
+        <h5 class="copyright">Copyright © 2018 The Grand Tour. All rights reserved.</h5>
     </Footer>
 
 </body>

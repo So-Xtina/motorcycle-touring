@@ -9,82 +9,234 @@ body {
 }
 
 img {
-	max-width: 30%;
+	max-width: 100%;
 	height: auto;
 }
 
-/***************Nav Bar********************/
+/*****************Header********************/
 
-.nav-bullets {
-	padding: 0;
-	list-style: none;
+header {
+	height: 10vh;
+	width: 100vw;
+	background-image: url("images/adventure-asphalt-california-533671.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-.nav-bullets li {
+.title,
+.detail {
+	margin: 0;
+	padding: 0.19em;
+	color: #f44336;
+}
+
+@media screen and (min-width: 85rem) and (orientation: landscape) {
+	.title {
+		padding: 0.6em;
+	}
+}
+
+@media screen and (max-width: 52rem) and (orientation: landscape) {
+	.detail {
+		visibility: hidden;
+	}
+
+	.title {
+		padding: 0;
+	}
+}
+
+@media screen and (min-width: 64rem) and (orientation: portrait) {
+	.title,
+	.detail {
+		padding: 0.3em;
+	}
+
+	.title {
+		font-size: 3em;
+	}
+
+	.detail {
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-width: 48rem) and (orientation: portrait) {
+	.title {
+		padding: 0.5em;
+	}
+}
+
+@media screen and (max-width: 26rem) and (orientation: portrait) {
+	.detail {
+		visibility: hidden;
+	}
+}
+
+/***************Main-Page******************/
+
+.main-page {
+	height: 86vh;
+	width: 100vw;
+	padding-top: 0.5em;
+}
+
+.container {
+	height: 100%;
+	width: 100%;
+	background-image: url("images/pexels-photo-297642.jpeg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.map {
+	height: 95%;
+	width: 47%;
+	border: 2px solid black;
+	position: relative;
+}
+
+.results {
+	height: 95%;
+	width: 47%;
+	border: 2px solid darkblue;
+}
+
+.map,
+.results {
+	margin: 1.3em 1em;
 	display: inline-block;
-	margin: 0.5em;
 }
 
-.nav-bullets a {
-	text-decoration: none;
+.map img {
+	position: absolute;
+	width: 95%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
-/****************Home page*****************/
-.main-home {
-	height: 100vh;
-	width: 100vw;
+.search {
+	height: 10%;
+	width: 100%;
+	border: 2px solid teal;
+	position: relative;
 }
 
-.main-home h1 {
-	margin: 3em 1em;
+.search-input,
+.go {
+	position: absolute;
 }
 
-.images-container {
-	background-color: #b8b8b8;
+.search-input {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
-@media (min-width: 60rem) {
-	.main-home h1 {
-		position: absolute;
-		margin: 3em 1em;
-		font-size: 4em;
-		color: #ffffff;
+.go {
+	left: 59%;
+	top: 42%;
+	padding: 0.3em;
+	border-radius: 0.5em;
+	transform: translate(-49%, -23%);
+}
+
+.finds {
+	height: 90%;
+	width: 100%;
+	border: 2px solid red;
+	/* overflow-y: scroll; */
+	overflow: auto;
+}
+
+.outcome {
+	height: 23%;
+	width: 95%;
+	border: 2px solid yellow;
+	margin: 1.5em;
+}
+
+@media screen and (max-width: 86rem) and (orientation: landscape) {
+	.container {
+		overflow-y: scroll;
+	}
+
+	.map,
+	.results {
+		width: 95%;
+		margin: 0.9em 0;
+	}
+
+	.map img {
+		width: 55%;
 	}
 }
 
-@media (min-width: 92rem) {
-	.main-home h1 {
-		position: absolute;
-		margin: 5em 1em;
-		font-size: 5em;
-		color: #ffffff;
+@media screen and (max-width: 64rem) and (orientation: portrait) {
+	.map {
+		height: 40%;
+		width: 95%;
+	}
+
+	.results {
+		height: 50%;
+		width: 95%;
+	}
+
+	.map,
+	.results {
+		margin: 1.5em 0;
+	}
+
+	.go {
+		transform: translate(-49%, -35%);
+	}
+
+	.map img {
+		width: 65%;
 	}
 }
 
-/***************Location*****************/
+@media screen and (max-width: 51rem) and (orientation: landscape) {
+	.go {
+		transform: translate(1%, -41%);
+	}
 
-.home-location {
-	height: 100vh;
+	.outcome {
+		margin: 1.2em;
+	}
+}
+
+@media screen and (max-width: 50rem) and (orientation: portrait) {
+	.map,
+	.results {
+		margin: 0.9em 0;
+	}
+
+	.go {
+		transform: translate(19%, -35%);
+	}
+
+	.outcome {
+		margin: 0.5em;
+	}
+}
+
+@media screen and (max-width: 47rem) and (orientation: portrait) {
+	.go {
+		transform: translate(173%, -43%);
+	}
+}
+
+/***************Footer*******************/
+
+footer {
+	height: 4vh;
 	width: 100vw;
 }
 
-/***************Directions****************/
-
-.home-directions {
-	height: 100vh;
-	width: 100vw;
-}
-
-/**************Weather***************/
-
-.home-weather {
-	height: 100vh;
-	width: 100vw;
-}
-
-/***************Pit - Stops****************/
-
-.home-pit-stops {
-	height: 100vh;
-	width: 100vw;
+.copyright {
+	margin: 0;
+	font-size: 0.7em;
 }
