@@ -27,12 +27,13 @@ header {
 .detail {
 	margin: 0;
 	padding: 0.19em;
-	color: #f44336;
+	color: #ff2d1e;
 }
 
 @media screen and (min-width: 85rem) and (orientation: landscape) {
 	.title {
-		padding: 0.6em;
+		/* padding: 0.6em; */
+		padding: 0.3em;
 	}
 }
 
@@ -63,7 +64,7 @@ header {
 
 @media screen and (max-width: 48rem) and (orientation: portrait) {
 	.title {
-		padding: 0.5em;
+		padding: 0.4em;
 	}
 }
 
@@ -90,22 +91,26 @@ header {
 }
 
 .map {
-	height: 95%;
+	height: 93%;
 	width: 47%;
-	border: 2px solid black;
+	/* border: 2px solid black; */
 	position: relative;
 }
 
 .results {
-	height: 95%;
+	height: 93%;
 	width: 47%;
-	border: 2px solid darkblue;
+	/* border: 2px solid darkblue; */
+	overflow: hidden;
 }
 
 .map,
 .results {
 	margin: 1.3em 1em;
 	display: inline-block;
+	background-color: #f3d489;
+	border-radius: 1em;
+	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
 
 .map img {
@@ -119,8 +124,10 @@ header {
 .search {
 	height: 10%;
 	width: 100%;
-	border: 2px solid teal;
+	/* border: 2px solid teal; */
 	position: relative;
+	background-color: #fff8db;
+	border-radius: 1em 1em 0 0;
 }
 
 .search-input,
@@ -145,15 +152,14 @@ header {
 .finds {
 	height: 90%;
 	width: 100%;
-	border: 2px solid red;
-	/* overflow-y: scroll; */
-	overflow: auto;
+	/* border: 2px solid red; */
+	overflow-y: scroll;
 }
 
 .outcome {
 	height: 23%;
 	width: 95%;
-	border: 2px solid yellow;
+	border: 0.15em solid yellow;
 	margin: 1.5em;
 }
 
@@ -211,7 +217,8 @@ header {
 @media screen and (max-width: 50rem) and (orientation: portrait) {
 	.map,
 	.results {
-		margin: 0.9em 0;
+		/* margin: 0.9em 0; */
+		margin: 0.8em 0;
 	}
 
 	.go {
