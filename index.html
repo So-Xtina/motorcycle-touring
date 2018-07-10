@@ -7,31 +7,62 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Grand Tour</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 
 <body>
     <header>
-        <h1 class="title">The Grand Tour</h1>
-        <h3 class="detail">Welcome to the Grand Motorcycle Tour, where you will find all your travel needs.</h3>
+        <div class="header-container">
+            <h1 class="title">The Grand Tour</h1>
+            <h3 class="detail">Welcome to the Grand Motorcycle Tour, where you will find all your travel needs.</h3>
+        </div>
     </header>
 
     <section class="main-page">
         <div class="container">
             <div class="map">
-                <img src="images/pexels-photo-434446.jpeg" alt="">
+                <img src="images/pexels-photo-297642.jpeg" alt="The Map">
             </div>
             <div class="results">
-                <form class="search">
-                    <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
-                    <button class="go" type="submit">Go</button>
-                </form>
-                <div class="finds">
-                    <div class="outcome">Search 1</div>
-                    <div class="outcome">Search 2</div>
-                    <div class="outcome">Search 3</div>
-                    <div class="outcome">Search 4</div>
-                    <div class="outcome">Search 5</div>
+                <div class="tab">
+                    <button class="tabLinks" onclick="openSearch(event, 'routes')">Routes</button>
+                    <button class="tabLinks" onclick="openSearch(event, 'weather')">Weather</button>
+                    <button class="tabLinks" onclick="openSearch(event, 'pitStops')">Pit-Stops</button>
                 </div>
+
+                <div id="routes" class="tabContent">
+                    <form class="search">
+                        <span>Routes</span>
+                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
+                        <button class="go" type="submit">Go</button>
+                    </form>
+                    <div class="findRoutes">
+
+                    </div>
+                </div>
+
+                <div id="weather" class="tabContent">
+                    <form class="search">
+                        <span>Weather</span>
+                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
+                        <button class="go" type="submit">Go</button>
+                    </form>
+                    <div class="findWeather">
+
+                    </div>
+                </div>
+
+                <div id="pitStops" class="tabContent">
+                    <form class="search">
+                        <span>Pit-Stops</span>
+                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
+                        <button class="go" type="submit">Go</button>
+                    </form>
+                    <div class="findPitStops">
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
