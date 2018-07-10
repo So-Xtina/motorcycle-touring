@@ -6,6 +6,9 @@ body {
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
+	background-image: url("images/asphalt-blue-clouds-1133505.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 img {
@@ -16,24 +19,30 @@ img {
 /*****************Header********************/
 
 header {
-	height: 10vh;
+	height: 11vh;
 	width: 100vw;
-	background-image: url("images/adventure-asphalt-california-533671.jpg");
-	background-repeat: no-repeat;
-	background-position: center;
+	padding-top: 0.5em;
+}
+
+.header-container {
+	height: 95%;
+	width: 50%;
+	background: rgba(220, 211, 202, 0.815);
+	border-radius: 1em;
+	margin: 0 auto;
+	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
 
 .title,
 .detail {
 	margin: 0;
 	padding: 0.19em;
-	color: #ff2d1e;
+	color: #ff3d00;
 }
 
 @media screen and (min-width: 85rem) and (orientation: landscape) {
 	.title {
-		/* padding: 0.6em; */
-		padding: 0.3em;
+		padding: 0.1em;
 	}
 }
 
@@ -48,13 +57,18 @@ header {
 }
 
 @media screen and (min-width: 64rem) and (orientation: portrait) {
+	.header-container {
+		height: 80%;
+		width: 95%;
+	}
+
 	.title,
 	.detail {
 		padding: 0.3em;
 	}
 
 	.title {
-		font-size: 3em;
+		font-size: 2em;
 	}
 
 	.detail {
@@ -63,52 +77,66 @@ header {
 }
 
 @media screen and (max-width: 48rem) and (orientation: portrait) {
+	header {
+		padding-top: 1em;
+	}
+
+	.header-container {
+		height: 90%;
+		width: 96%;
+	}
+
 	.title {
-		padding: 0.4em;
+		padding: 0.3em;
 	}
 }
 
 @media screen and (max-width: 26rem) and (orientation: portrait) {
+	.header-container {
+		height: 82%;
+		width: 88%;
+	}
+
 	.detail {
 		visibility: hidden;
+	}
+}
+
+@media screen and (max-width: 20rem) and (orientation: portrait) {
+	.header-container {
+		height: 95%;
 	}
 }
 
 /***************Main-Page******************/
 
 .main-page {
-	height: 86vh;
+	height: 85vh;
 	width: 100vw;
-	padding-top: 0.5em;
 }
 
 .container {
 	height: 100%;
 	width: 100%;
-	background-image: url("images/pexels-photo-297642.jpeg");
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .map {
 	height: 93%;
 	width: 47%;
-	/* border: 2px solid black; */
 	position: relative;
 }
 
 .results {
 	height: 93%;
 	width: 47%;
-	/* border: 2px solid darkblue; */
 	overflow: hidden;
 }
 
 .map,
 .results {
-	margin: 1.3em 1em;
+	margin: 1.9em 1em;
 	display: inline-block;
-	background-color: #f3d489;
+	background: rgba(236, 236, 236, 0.6);
 	border-radius: 1em;
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
@@ -124,10 +152,9 @@ header {
 .search {
 	height: 10%;
 	width: 100%;
-	/* border: 2px solid teal; */
 	position: relative;
-	background-color: #fff8db;
-	border-radius: 1em 1em 0 0;
+	background-color: rgba(252, 235, 196, 0.8);
+	/* border-radius: 1em 1em 0 0; */
 }
 
 .search-input,
@@ -149,18 +176,21 @@ header {
 	transform: translate(-49%, -23%);
 }
 
-.finds {
+.findRoutes,
+.findWeather,
+.findPitStops {
 	height: 90%;
 	width: 100%;
-	/* border: 2px solid red; */
 	overflow-y: scroll;
 }
 
 .outcome {
 	height: 23%;
 	width: 95%;
-	border: 0.15em solid yellow;
+	border: 0.15em solid black;
+	border-color: rgba(0, 0, 0, 0.6);
 	margin: 1.5em;
+	background-color: beige;
 }
 
 @media screen and (max-width: 86rem) and (orientation: landscape) {
@@ -170,7 +200,7 @@ header {
 
 	.map,
 	.results {
-		width: 95%;
+		width: 90%;
 		margin: 0.9em 0;
 	}
 
@@ -180,14 +210,18 @@ header {
 }
 
 @media screen and (max-width: 64rem) and (orientation: portrait) {
+	header {
+		padding-top: 1em;
+	}
+
 	.map {
 		height: 40%;
-		width: 95%;
+		width: 90%;
 	}
 
 	.results {
 		height: 50%;
-		width: 95%;
+		width: 90%;
 	}
 
 	.map,
@@ -217,8 +251,8 @@ header {
 @media screen and (max-width: 50rem) and (orientation: portrait) {
 	.map,
 	.results {
-		/* margin: 0.9em 0; */
 		margin: 0.8em 0;
+		width: 87%;
 	}
 
 	.go {
@@ -246,4 +280,38 @@ footer {
 .copyright {
 	margin: 0;
 	font-size: 0.7em;
+	color: #b7b7b7;
+}
+
+/******************TABS**********************/
+
+.tab {
+	overflow: hidden;
+	border: 0.0625em solid #ccc;
+	background-color: #f1f1f1;
+}
+
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0.875em 5.8em;
+	font-size: 1em;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+.tab button:hover {
+	background-color: #ccc;
+}
+
+.tabContent {
+	height: 95%;
+	width: 100%;
+	display: none;
+	padding: 0.375em 0.75em;
+	border: 0.0625em solid #ccc;
+	border-top: none;
 }
