@@ -3,9 +3,6 @@
 //Default tab that will show automatically when page is loaded;
 window.addEventListener("load", function() {
 	document.getElementById("routes").style.display = "block";
-	addRoutes();
-	addWeather();
-	addPitStops();
 });
 
 //tab search;
@@ -35,13 +32,15 @@ function openSearch(event, searchName) {
 
 //dynamically populate the search find results onto the page;
 //Routes
-function addRoutes() {
-	for (var i = 1; i <= 5; i++) {
+function addRoutes(data) {
+	for (var i = 1; i <= data.length; i++) {
 		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome";
+		resultDivs.className = "outcome-routes";
 
-		var resultContent = document.createTextNode("Search " + i);
-		resultDivs.appendChild(resultContent);
+		var findsContainer = document.createElement("P");
+		var resultContent = document.createTextNode(data);
+		findsContainer.appendChild(resultContent);
+		resultDivs.appendChild(findsContainer);
 
 		var newDiv = document.querySelector("div.findRoutes");
 		newDiv.appendChild(resultDivs);
@@ -52,7 +51,7 @@ function addRoutes() {
 function addWeather() {
 	for (var i = 1; i <= 5; i++) {
 		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome";
+		resultDivs.className = "outcome-weather";
 
 		var resultContent = document.createTextNode("Search " + i);
 		resultDivs.appendChild(resultContent);
@@ -66,7 +65,7 @@ function addWeather() {
 function addPitStops() {
 	for (var i = 1; i <= 5; i++) {
 		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome";
+		resultDivs.className = "outcome-pitStops";
 
 		var resultContent = document.createTextNode("Search " + i);
 		resultDivs.appendChild(resultContent);
@@ -74,4 +73,33 @@ function addPitStops() {
 		var newDiv = document.querySelector("div.findPitStops");
 		newDiv.appendChild(resultDivs);
 	}
+}
+
+// /*********************YELP API*********************/
+
+function getBusiness() {
+	debugger;
+
+	let searchValue = $("#search-r").val();
+	let searchLocation = $("#location-r").val();
+
+	var options = {
+		url: "/yelp-search",
+		method: "POST",
+		dataType: "JSON",
+		data: {
+			search: searchValue,
+			location: searchLocation
+		},
+		success: function(data) {
+			console.log("The response: ", data);
+
+			addRoutes(data);
+		},
+		failure: function(err) {
+			console.log("The error: ", data);
+		}
+	};
+
+	$.ajax(options);
 }

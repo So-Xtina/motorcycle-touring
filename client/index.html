@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Grand Tour</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="scripts.js"></script>
 </head>
 
@@ -31,10 +32,11 @@
                 </div>
 
                 <div id="routes" class="tabContent">
-                    <form class="search">
+                    <form class="search searchFormRoutes">
                         <span>Routes</span>
-                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
-                        <button class="go" type="submit">Go</button>
+                        <input class="search-routes" type="text" placeholder="Search..." maxlength="100" id="search-r">
+                        <input class="search-routes-loc" type="text" placeholder="Location..." maxlength="100" id="location-r">
+                        <button onclick="getBusiness()" class="go-routes" type="button">Go</button>
                     </form>
                     <div class="findRoutes">
 
@@ -42,10 +44,10 @@
                 </div>
 
                 <div id="weather" class="tabContent">
-                    <form class="search">
+                    <form class="search searchFormWeather">
                         <span>Weather</span>
-                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
-                        <button class="go" type="submit">Go</button>
+                        <input class="search-weather" type="text" placeholder="Zip code...City..." maxlength="100" id="search-w">
+                        <button class="go-weather" type="button">Go</button>
                     </form>
                     <div class="findWeather">
 
@@ -53,10 +55,10 @@
                 </div>
 
                 <div id="pitStops" class="tabContent">
-                    <form class="search">
+                    <form class="search searchFormPitStops">
                         <span>Pit-Stops</span>
-                        <input class="search-input" type="text" placeholder="Search..." maxlength="100" id="search">
-                        <button class="go" type="submit">Go</button>
+                        <input class="search-pitStops" type="text" placeholder="Search..." maxlength="100" id="search-p">
+                        <button class="go-pitStops" type="button">Go</button>
                     </form>
                     <div class="findPitStops">
 

@@ -157,20 +157,34 @@ header {
 	/* border-radius: 1em 1em 0 0; */
 }
 
-.search-input,
-.go {
+.search-routes,
+.search-weather,
+.search-pitStops,
+.go-routes,
+.go-weather,
+.go-pitStops {
 	position: absolute;
 }
 
-.search-input {
-	top: 50%;
+.search-routes,
+.search-weather,
+.search-pitStops {
+	top: 60%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-60%, -50%);
 }
 
-.go {
+.search span {
+	position: absolute;
+	top: 13%;
+	left: 46%;
+}
+
+.go-routes,
+.go-weather,
+.go-pitStops {
 	left: 59%;
-	top: 42%;
+	top: 50%;
 	padding: 0.3em;
 	border-radius: 0.5em;
 	transform: translate(-49%, -23%);
@@ -184,7 +198,9 @@ header {
 	overflow-y: scroll;
 }
 
-.outcome {
+.outcome-routes,
+.outcome-weather,
+.outcome-pitStops {
 	height: 23%;
 	width: 95%;
 	border: 0.15em solid black;
@@ -206,6 +222,18 @@ header {
 
 	.map img {
 		width: 55%;
+	}
+
+	.search span {
+		visibility: hidden;
+	}
+
+	.search-routes,
+	.search-weather,
+	.search-pitStops {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }
 
@@ -229,21 +257,39 @@ header {
 		margin: 1.5em 0;
 	}
 
-	.go {
+	.go-routes,
+	.go-weather,
+	.go-pitStops {
 		transform: translate(-49%, -35%);
 	}
 
 	.map img {
 		width: 65%;
 	}
+
+	.search span {
+		visibility: hidden;
+	}
+
+	.search-routes,
+	.search-weather,
+	.search-pitStops {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
 
 @media screen and (max-width: 51rem) and (orientation: landscape) {
-	.go {
+	.go-routes,
+	.go-weather,
+	.go-pitStops {
 		transform: translate(1%, -41%);
 	}
 
-	.outcome {
+	.outcome-routes,
+	.outcome-weather,
+	.outcome-pitStops {
 		margin: 1.2em;
 	}
 }
@@ -255,17 +301,23 @@ header {
 		width: 87%;
 	}
 
-	.go {
+	.go-routes,
+	.go-weather,
+	.go-pitStops {
 		transform: translate(19%, -35%);
 	}
 
-	.outcome {
+	.outcome-routes,
+	.outcome-weather,
+	.outcome-pitStops {
 		margin: 0.5em;
 	}
 }
 
 @media screen and (max-width: 47rem) and (orientation: portrait) {
-	.go {
+	.go-routes,
+	.go-weather,
+	.go-pitStops {
 		transform: translate(173%, -43%);
 	}
 }
@@ -307,6 +359,10 @@ footer {
 	background-color: #ccc;
 }
 
+.active {
+	color: #ff0000;
+}
+
 .tabContent {
 	height: 95%;
 	width: 100%;
@@ -314,4 +370,70 @@ footer {
 	padding: 0.375em 0.75em;
 	border: 0.0625em solid #ccc;
 	border-top: none;
+}
+
+@media screen and (max-width: 64rem) and (orientation: portrait) {
+	.tab button {
+		padding: 0.875em 7.5em;
+	}
+}
+
+@media screen and (max-width: 52rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 5.5em;
+	}
+}
+
+@media screen and (max-width: 51rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 5.5em;
+	}
+}
+
+@media screen and (max-width: 48rem) and (orientation: portrait) {
+	.tab button {
+		padding: 0.875em 4.9em;
+	}
+}
+
+@media screen and (max-width: 46rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 4.8em;
+	}
+}
+
+@media screen and (max-width: 42rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 4.1em;
+	}
+}
+
+@media screen and (max-width: 40rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 3.8em;
+	}
+}
+
+@media screen and (max-width: 36rem) and (orientation: landscape) {
+	.tab button {
+		padding: 0.875em 3.2em;
+	}
+}
+
+@media screen and (max-width: 26rem) and (orientation: portrait) {
+	.tab button {
+		padding: 0.875em 1.3em;
+	}
+}
+
+@media screen and (max-width: 23rem) and (orientation: portrait) {
+	.tab button {
+		padding: 0.875em 1.2em;
+	}
+}
+
+@media screen and (max-width: 20rem) and (orientation: portrait) {
+	.tab button {
+		padding: 0.875em 0.85em;
+	}
 }
