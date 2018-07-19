@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, "..", "client")));
 
 app.post("/yelp-search", async (req, res) => {
 	const { term, location } = req.body;
+	console.log("this is the term: ", term);
 	let output = {};
 
 	await client
