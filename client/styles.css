@@ -169,9 +169,16 @@ header {
 .search-routes,
 .search-weather,
 .search-pitStops {
-	top: 60%;
-	left: 50%;
-	transform: translate(-60%, -50%);
+	top: 46%;
+	left: 30%;
+	/* transform: translate(-60%, -50%); */
+}
+
+.search-routes-loc,
+.search-pitStops-loc {
+	top: 46%;
+	left: 49%;
+	position: absolute;
 }
 
 .search span {
@@ -183,7 +190,7 @@ header {
 .go-routes,
 .go-weather,
 .go-pitStops {
-	left: 59%;
+	left: 70%;
 	top: 50%;
 	padding: 0.3em;
 	border-radius: 0.5em;
@@ -201,12 +208,37 @@ header {
 .outcome-routes,
 .outcome-weather,
 .outcome-pitStops {
-	height: 23%;
+	height: 25%;
 	width: 95%;
 	border: 0.15em solid black;
 	border-color: rgba(0, 0, 0, 0.6);
-	margin: 1.5em;
+	margin: 0.7em;
 	background-color: beige;
+	display: inline-block;
+}
+
+.outcome-routes-img {
+	width: 30%;
+}
+
+.outcome-routes-info {
+	width: 65%;
+}
+
+.outcome-routes-info h1,
+.outcome-routes-info h3 {
+	margin: 0;
+}
+
+.outcome-routes-img img {
+	height: 100%;
+}
+
+.outcome-routes-img,
+.outcome-routes-info {
+	height: 95%;
+	/* margin: 0.5em; */
+	display: inline-block;
 }
 
 @media screen and (max-width: 86rem) and (orientation: landscape) {
