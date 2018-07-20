@@ -120,7 +120,7 @@ header {
 	width: 100%;
 }
 
-.map {
+.map-container {
 	height: 93%;
 	width: 47%;
 	position: relative;
@@ -132,7 +132,7 @@ header {
 	overflow: hidden;
 }
 
-.map,
+.map-container,
 .results {
 	margin: 1.9em 1em;
 	display: inline-block;
@@ -141,13 +141,13 @@ header {
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
 
-.map img {
+/* .map-container img {
 	position: absolute;
 	width: 95%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
+} */
 
 .search {
 	height: 10%;
@@ -217,25 +217,25 @@ header {
 	display: inline-block;
 }
 
-.outcome-routes-img {
+.outcome-pitStops-img {
 	width: 30%;
 }
 
-.outcome-routes-info {
+.outcome-pitStops-info {
 	width: 65%;
 }
 
-.outcome-routes-info h1,
-.outcome-routes-info h3 {
+.outcome-pitStops-info h1,
+.outcome-pitStops-info h3 {
 	margin: 0;
 }
 
-.outcome-routes-img img {
+.outcome-pitStops-img img {
 	height: 100%;
 }
 
-.outcome-routes-img,
-.outcome-routes-info {
+.outcome-pitStops-img,
+.outcome-pitStops-info {
 	height: 95%;
 	/* margin: 0.5em; */
 	display: inline-block;
@@ -246,15 +246,15 @@ header {
 		overflow-y: scroll;
 	}
 
-	.map,
+	.map-container,
 	.results {
 		width: 90%;
 		margin: 0.9em 0;
 	}
 
-	.map img {
+	/* .map-container img {
 		width: 55%;
-	}
+	} */
 
 	.search span {
 		visibility: hidden;
@@ -274,7 +274,7 @@ header {
 		padding-top: 1em;
 	}
 
-	.map {
+	.map-container {
 		height: 40%;
 		width: 90%;
 	}
@@ -284,7 +284,7 @@ header {
 		width: 90%;
 	}
 
-	.map,
+	.map-container,
 	.results {
 		margin: 1.5em 0;
 	}
@@ -295,9 +295,9 @@ header {
 		transform: translate(-49%, -35%);
 	}
 
-	.map img {
+	/* .map-container img {
 		width: 65%;
-	}
+	} */
 
 	.search span {
 		visibility: hidden;
@@ -327,7 +327,7 @@ header {
 }
 
 @media screen and (max-width: 50rem) and (orientation: portrait) {
-	.map,
+	.map-container,
 	.results {
 		margin: 0.8em 0;
 		width: 87%;
@@ -468,4 +468,14 @@ footer {
 	.tab button {
 		padding: 0.875em 0.85em;
 	}
+}
+
+/***************************** MAP ******************************/
+#map {
+	height: 86%;
+	width: 86%;
+	position: absolute;
+	top: 7%;
+	left: 7%;
+	background-color: grey;
 }

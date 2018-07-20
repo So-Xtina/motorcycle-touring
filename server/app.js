@@ -2,11 +2,10 @@ const express = require("express");
 const yelp = require("yelp-fusion");
 const path = require("path");
 const bodyParser = require("body-parser");
+const { API_KEY } = require("./config/credentials.js");
 
 const app = express();
 const PORT = 9000;
-const API_KEY =
-	"ttxJcYPvjwpiLMw1Vz3OVGye2SK2vStLlW5dVwv3mF_SXEqCe-IO4nvPzBDXl60EkvJtygZmmmKhBVj3AE6JBU6c8rb_4TdLIYw3gMRBzgqchNOW_vtxJVuRmVNJW3Yx";
 const client = yelp.client(API_KEY);
 
 // app.use(express.json());
