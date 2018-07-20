@@ -29,21 +29,21 @@ function openSearch(event, searchName) {
 }
 
 /********************Dynamically create finds********************/
-
 //dynamically populate the search find results onto the page;
-//Routes
-function addRoutes(data) {
-	debugger;
-	var findData = data.data;
 
-	console.log("Routes Data: ", findData);
+//Pit-Stops
+function addPitStops(data) {
+	var findData = data.data;
+	initMap(findData);
+
+	console.log("PitStops Data: ", findData);
 
 	for (var i = 0; i < findData.length; i++) {
 		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome-routes";
+		resultDivs.className = "outcome-pitStops";
 
 		var imgContainer = document.createElement("div");
-		imgContainer.className = "outcome-routes-img";
+		imgContainer.className = "outcome-pitStops-img";
 
 		var findsImg = document.createElement("IMG");
 		findsImg.setAttribute("src", findData[i]["image_url"]);
@@ -51,7 +51,7 @@ function addRoutes(data) {
 		imgContainer.append(findsImg);
 
 		var findsInfo = document.createElement("div");
-		findsInfo.className = "outcome-routes-info";
+		findsInfo.className = "outcome-pitStops-info";
 
 		var findsTitle = document.createElement("H1");
 		var titleContent = document.createTextNode(findData[i]["name"]);
@@ -79,7 +79,7 @@ function addRoutes(data) {
 		resultDivs.append(imgContainer);
 		resultDivs.append(findsInfo);
 
-		var newDiv = document.querySelector("div.findRoutes");
+		var newDiv = document.querySelector("div.findPitStops");
 		newDiv.appendChild(resultDivs);
 	}
 
@@ -100,32 +100,36 @@ function addWeather() {
 	}
 }
 
-//Pit-Stops
-function addPitStops() {
+//Routes
+function addRoutes() {
 	for (var i = 1; i <= 5; i++) {
 		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome-pitStops";
+		resultDivs.className = "outcome-routes";
 
 		var resultContent = document.createTextNode("Search " + i);
 		resultDivs.appendChild(resultContent);
 
-		var newDiv = document.querySelector("div.findPitStops");
+		var newDiv = document.querySelector("div.findRoutes");
 		newDiv.appendChild(resultDivs);
 	}
 }
 
 /****************Empty out Container*******************/
 //empty out search results for new search;
+
 function emptyOutResults() {
 	document.getElementById("go").addEventListener("click", function() {
-		document.querySelector("div.findRoutes").innerHTML = "";
-		addRoutes();
+		document.querySelector("div.findPitStops").innerHTML = "";
+		addPitStops();
 	});
 	// findWeather.innerHTML = "";
-	// findPitStops.innerHTML = "";
+	// findRoutes.innerHTML = "";
 }
 
 /********************Yelp Star Reviews**********************/
+//switching out the star images according to the ratings for the yelp reviews
+//of the businesses
+
 function stars(reviews) {
 	var img;
 	switch (reviews) {
@@ -154,11 +158,34 @@ function stars(reviews) {
 	}
 }
 
+/********************* Map Markers! **********************/
+//creating a marker for the map
+var map;
+function initMap(data) {
+	debugger;
+	console.log("initMap data: ", data);
+	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
+	map = new google.maps.Map(document.getElementById("map"), {
+		zoom: 3.9,
+		center: unitedStatesCenterPoint,
+		mapTypeId: google.maps.MapTypeId.TERRAIN
+	});
+
+	for (var i = 0; i < data.length; i++) {
+		var coords = data[i]["coordinates"];
+		var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
+		var marker = new google.maps.Marker({
+			position: latLng,
+			map: map
+		});
+	}
+}
+
 /*********************YELP API*********************/
 
 function getBusiness() {
-	var searchValue = $("#search-r").val();
-	var searchLocation = $("#location-r").val();
+	var searchValue = $("#search-p").val();
+	var searchLocation = $("#location-p").val();
 
 	var options = {
 		url: "/yelp-search",
@@ -171,7 +198,7 @@ function getBusiness() {
 		success: function(data) {
 			console.log("The response: ", data);
 
-			addRoutes(data);
+			addPitStops(data);
 		},
 		failure: function(err) {
 			console.log("The error: ", data);
