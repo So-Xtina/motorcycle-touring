@@ -2,7 +2,7 @@
 
 //Default tab that will show automatically when page is loaded;
 window.addEventListener("load", function() {
-	document.getElementById("routes").style.display = "block";
+	document.getElementById("pitStops").style.display = "block";
 });
 
 //tab search;
@@ -34,7 +34,6 @@ function openSearch(event, searchName) {
 //Pit-Stops
 function addPitStops(data) {
 	var findData = data.data;
-	initMap(findData);
 
 	console.log("PitStops Data: ", findData);
 
@@ -83,6 +82,7 @@ function addPitStops(data) {
 		newDiv.appendChild(resultDivs);
 	}
 
+	initMap(findData);
 	emptyOutResults();
 }
 
@@ -101,18 +101,18 @@ function addWeather() {
 }
 
 //Routes
-function addRoutes() {
-	for (var i = 1; i <= 5; i++) {
-		var resultDivs = document.createElement("div");
-		resultDivs.className = "outcome-routes";
+// function addRoutes() {
+// 	for (var i = 1; i <= 5; i++) {
+// 		var resultDivs = document.createElement("div");
+// 		resultDivs.className = "outcome-routes";
 
-		var resultContent = document.createTextNode("Search " + i);
-		resultDivs.appendChild(resultContent);
+// 		var resultContent = document.createTextNode("Search " + i);
+// 		resultDivs.appendChild(resultContent);
 
-		var newDiv = document.querySelector("div.findRoutes");
-		newDiv.appendChild(resultDivs);
-	}
-}
+// 		var newDiv = document.querySelector("div.findRoutes");
+// 		newDiv.appendChild(resultDivs);
+// 	}
+// }
 
 /****************Empty out Container*******************/
 //empty out search results for new search;
@@ -158,29 +158,6 @@ function stars(reviews) {
 	}
 }
 
-/********************* Map Markers! **********************/
-//creating a marker for the map
-var map;
-function initMap(data) {
-	debugger;
-	console.log("initMap data: ", data);
-	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
-	map = new google.maps.Map(document.getElementById("map"), {
-		zoom: 3.9,
-		center: unitedStatesCenterPoint,
-		mapTypeId: google.maps.MapTypeId.TERRAIN
-	});
-
-	for (var i = 0; i < data.length; i++) {
-		var coords = data[i]["coordinates"];
-		var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
-		var marker = new google.maps.Marker({
-			position: latLng,
-			map: map
-		});
-	}
-}
-
 /*********************YELP API*********************/
 
 function getBusiness() {
@@ -206,4 +183,109 @@ function getBusiness() {
 	};
 
 	$.ajax(options);
+}
+
+/********************* Google Maps API **********************/
+//creating markers for the map and grabbing geolocation of user/directions for each yelp location
+var map, infoWindow;
+function initMap(data) {
+	debugger;
+	console.log("initMap data: ", data);
+	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
+	map = new google.maps.Map(document.getElementById("map"), {
+		zoom: 3.9,
+		center: unitedStatesCenterPoint,
+		mapTypeId: google.maps.MapTypeId.TERRAIN
+	});
+
+	// creating the markers for the map from yelp api
+	if (data) {
+		for (var i = 0; i < data.length; i++) {
+			var coords = data[i]["coordinates"];
+			var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
+			var marker = new google.maps.Marker({
+				position: latLng,
+				map: map
+			});
+		}
+	}
+
+	infoWindow = new google.maps.InfoWindow();
+
+	// directions to the yelp destination from the current location of the user
+	var directionsService = new google.maps.DirectionsService();
+	var directionsDisplay = new google.maps.DirectionsRenderer({
+		draggable: true,
+		map: map,
+		panel: document.getElementById("right-panel")
+	});
+
+	//grabbing the users geolocation
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			function(position) {
+				var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+				infoWindow.setPosition(pos);
+				infoWindow.setContent(" Location found. ");
+				infoWindow.open(map);
+				map.setCenter(pos);
+				displayRoute(pos, latLng, directionsService, directionsDisplay);
+			},
+			function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			}
+		);
+	} else {
+		handleLocationError(false, infoWindow, map.getCenter());
+	}
+
+	directionsDisplay.addListener("directions_changed", function() {
+		computeTotalDistance(directionsDisplay.getDirections());
+	});
+}
+
+//Error handling for the geolocation
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	infoWindow.setPosition(pos);
+	infoWindow.setContent(
+		browserHasGeolocation
+			? " Error: The Geolocation service failed. "
+			: " Error: Your browser doesn't support geolocation. "
+	);
+	infoWindow.open(map);
+}
+
+//displaying the route
+function displayRoute(origin, destination, service, display) {
+	service.route(
+		{
+			origin: origin,
+			destination: destination,
+			// waypoints: [{ location: "" }, { location: "" }],
+			travelMode: "DRIVING",
+			avoidTolls: true
+		},
+		function(response, status) {
+			if (status === "OK") {
+				display.setDirections(response);
+			} else {
+				alert("Could not display directions due to: " + status);
+			}
+		}
+	);
+}
+
+//the total distance from user location to the destination
+function computeTotalDistance(result) {
+	var total = 0;
+	var myRoute = result.routes[0];
+
+	for (var i = 0; i < myRoute.legs.length; i++) {
+		total += myRoute.legs[i].distance.value;
+	}
+
+	total = total / 1000;
+
+	document.getElementById("total").innerHTML = total + " km";
 }

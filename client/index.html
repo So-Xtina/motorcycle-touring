@@ -24,7 +24,6 @@
     <section class="main-page">
         <div class="container">
             <div class="map-container">
-                <!-- <img src="images/pexels-photo-297642.jpeg" alt="The Map"> -->
                 <div id="map"></div>
             </div>
             <div class="results">
@@ -37,12 +36,16 @@
                 <div id="routes" class="tabContent">
                     <form class="search searchFormRoutes">
                         <span>Routes</span>
-                        <input class="search-routes" type="text" placeholder="Search..." maxlength="100" id="search-r">
-                        <input class="search-routes-loc" type="text" placeholder="Location..." maxlength="100" id="location-r">
+                        <input class="search-routes" type="text" placeholder="Start" maxlength="100" id="start-r">
+                        <input class="search-routes-loc" type="text" placeholder="End" maxlength="100" id="end-r">
                         <button id="go" class="go-routes" type="button">Go</button>
                     </form>
                     <div class="findRoutes">
-
+                        <div id="right-panel">
+                            <p>Total Distance:
+                                <span id="total"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -74,7 +77,7 @@
     </section>
 
     <Footer>
-        <h5 class="copyright">Copyright © 2018 The Grand Tour. All rights reserved.</h5>
+        <h5 class="copyright ">Copyright © 2018 The Grand Tour. All rights reserved.</h5>
     </Footer>
 
 </body>

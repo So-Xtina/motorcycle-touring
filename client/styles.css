@@ -4,6 +4,7 @@
 
 body {
 	margin: 0;
+	/* padding: 0; */
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
 	background-image: url("images/asphalt-blue-clouds-1133505.jpg");
@@ -141,14 +142,6 @@ header {
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
 
-/* .map-container img {
-	position: absolute;
-	width: 95%;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-} */
-
 .search {
 	height: 10%;
 	width: 100%;
@@ -252,10 +245,6 @@ header {
 		margin: 0.9em 0;
 	}
 
-	/* .map-container img {
-		width: 55%;
-	} */
-
 	.search span {
 		visibility: hidden;
 	}
@@ -294,10 +283,6 @@ header {
 	.go-pitStops {
 		transform: translate(-49%, -35%);
 	}
-
-	/* .map-container img {
-		width: 65%;
-	} */
 
 	.search span {
 		visibility: hidden;
@@ -478,4 +463,32 @@ footer {
 	top: 7%;
 	left: 7%;
 	background-color: grey;
+}
+
+/********************** Right Panel for Map Directions - Draggable Directions ********************/
+#right-panel {
+	width: 100%;
+	height: 100%;
+	font-family: "Roboto", "sans-serif";
+	line-height: 1.875em;
+	padding-left: 0.625em;
+	border: 0.1em solid red;
+}
+
+#right-panel select,
+#right-panel input {
+	font-size: 0.9375em;
+}
+
+#right-panel select {
+	width: 100%;
+}
+
+#right-panel i {
+	font-size: 0.75em;
+}
+
+.panel {
+	height: 100%;
+	overflow: auto;
 }
