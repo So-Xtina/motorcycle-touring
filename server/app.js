@@ -2,11 +2,13 @@ const express = require("express");
 const yelp = require("yelp-fusion");
 const path = require("path");
 const bodyParser = require("body-parser");
-const { API_KEY } = require("./config/credentials.js");
+const DarkSky = require("dark-sky");
+const { YELP_API_KEY, DARK_SKY_API_KEY } = require("./config/credentials.js");
+const darkSky = new DarkSky(DARK_SKY_API_KEY);
 
 const app = express();
 const PORT = 9000;
-const client = yelp.client(API_KEY);
+const client = yelp.client(YELP_API_KEY);
 
 // app.use(express.json());
 // app.use(express.urlencoded());
@@ -21,6 +23,7 @@ app.use(express.static(path.join(__dirname, "..", "client")));
 // 	// res.sendFile(__dirname + "/client/index.html");
 // });
 
+//YELP ENDPOINT
 app.post("/yelp-search", async (req, res) => {
 	const { term, location } = req.body;
 	console.log("this is the term: ", term);
@@ -38,6 +41,18 @@ app.post("/yelp-search", async (req, res) => {
 		});
 
 	res.json(output);
+});
+
+//DARK SKY ENDPOINT
+app.post("/forecast", async (req, res) => {
+	const { latitude, longitude } = req.body;
+	const forecast = await darkSky
+		.options({
+			latitude,
+			longitude
+		})
+		.get();
+	res.status(200).json(forecast);
 });
 
 app.listen(PORT, () => {
