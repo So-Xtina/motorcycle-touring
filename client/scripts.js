@@ -87,13 +87,36 @@ function addPitStops(data) {
 }
 
 //Weather
-function addWeather() {
-	for (var i = 1; i <= 5; i++) {
+function addWeather(data) {
+	debugger;
+	var weather = data.daily.data;
+	for (var i = 0; i < weather.length; i++) {
 		var resultDivs = document.createElement("div");
 		resultDivs.className = "outcome-weather";
 
-		var resultContent = document.createTextNode("Search " + i);
-		resultDivs.appendChild(resultContent);
+		var imgContainer = document.createElement("div");
+		imgContainer.className = "forecast-img-time";
+
+		var weatherImg = document.createElement("IMG");
+		weatherImg.setAttribute("src", `${forecastImg(weather[i]["icon"])}`);
+		var weatherDate = new Date(weather[i]["time"]);
+		var time = document.createElement("P");
+		var timeContent = document.createTextNode(weatherDate);
+		time.className = "weather-time";
+		time.appendChild(timeContent);
+
+		imgContainer.append(weatherImg);
+		imgContainer.append(time);
+
+		var infoContainer = document.createElement("div");
+		infoContainer.className = "weather-info";
+		var weatherSummary = document.createElement("P");
+		var summaryInfo = document.createTextNode(weather[i]["summary"]);
+		weatherSummary.appendChild(summaryInfo);
+		infoContainer.append(weatherSummary);
+
+		resultDivs.append(imgContainer);
+		resultDivs.append(infoContainer);
 
 		var newDiv = document.querySelector("div.findWeather");
 		newDiv.appendChild(resultDivs);
@@ -102,7 +125,7 @@ function addWeather() {
 
 //Routes
 // function addRoutes() {
-// 	for (var i = 1; i <= 5; i++) {
+// 	for (var i = 0; i <= 5; i++) {
 // 		var resultDivs = document.createElement("div");
 // 		resultDivs.className = "outcome-routes";
 
@@ -124,6 +147,68 @@ function emptyOutResults() {
 	});
 	// findWeather.innerHTML = "";
 	// findRoutes.innerHTML = "";
+}
+
+/******************** Weather Forecast Icons **********************/
+//switching out the weather icons according to the weather summary
+
+function forecastImg(summary) {
+	var img;
+	switch (summary) {
+		case "clear-day":
+			return (img = "../climacons-master/SVG/Sun.svg");
+		case "clear-night":
+			return (img = "../climacons-master/SVG/Moon.svg");
+		case "rain":
+			return (img = "../climacons-master/SVG/Cloud-Rain.svg");
+		case "snow":
+			return (img = "../climacons-master/SVG/Cloud-Snow.svg");
+		case "wind":
+			return (img = "../climacons-master/SVG/Cloud-Wind.svg");
+		case "fog":
+			return (img = "../climacons-master/SVG/Cloud-Fog.svg");
+		case "cloudy":
+			return (img = "../climacons-master/SVG/Cloud.svg");
+		case "partly-cloudy-day":
+			return (img = "../climacons-master/SVG/Cloud-Sun.svg");
+		case "partly-cloudy-night":
+			return (img = "../climacons-master/SVG/Cloud-Moon.svg");
+		case "sleet":
+		case "hail":
+			return (img = "../climacons-master/SVG/Cloud-Hail.svg");
+		case "thunderstorm":
+			return (img = "../climacons-master/SVG/Cloud-Lightning.svg");
+		case "tornado":
+			return (img = "../climacons-master/SVG/Tornado.svg");
+		default:
+			return (img = "");
+	}
+}
+
+/******************* Weather API *********************/
+function getWeather(locationWeather) {
+	var lat = locationWeather["lat"];
+	var long = locationWeather["lng"];
+
+	var options = {
+		url: "/forecast",
+		method: "POST",
+		dataType: "JSON",
+		data: {
+			latitude: lat,
+			longitude: long
+		},
+		success: function(data) {
+			console.log("The response: ", data);
+
+			addWeather(data);
+		},
+		failure: function(err) {
+			console.log("The error: ", err);
+		}
+	};
+
+	$.ajax(options);
 }
 
 /********************Yelp Star Reviews**********************/
@@ -178,7 +263,7 @@ function getBusiness() {
 			addPitStops(data);
 		},
 		failure: function(err) {
-			console.log("The error: ", data);
+			console.log("The error: ", err);
 		}
 	};
 
@@ -187,15 +272,22 @@ function getBusiness() {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow;
+var map, infoWindow, lat, lng;
 function initMap(data) {
-	debugger;
+	// debugger;
 	console.log("initMap data: ", data);
 	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
 	map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 3.9,
 		center: unitedStatesCenterPoint,
 		mapTypeId: google.maps.MapTypeId.TERRAIN
+	});
+
+	//Geocode, grabbing lat and lng
+	var geocoder = new google.maps.Geocoder();
+
+	document.getElementById("go-weather").addEventListener("click", function() {
+		geocodeAddress(geocoder, map);
 	});
 
 	// creating the markers for the map from yelp api
@@ -242,6 +334,22 @@ function initMap(data) {
 
 	directionsDisplay.addListener("directions_changed", function() {
 		computeTotalDistance(directionsDisplay.getDirections());
+	});
+}
+
+//Geocoding the address for lat and lng for the weather
+function geocodeAddress(geocoder, resultsMap) {
+	var address = document.getElementById("address").value;
+	geocoder.geocode({ address: address }, function(results, status) {
+		if (status === "OK") {
+			var locationWeather = {
+				lat: results[0].geometry.location.lat(),
+				lng: results[0].geometry.location.lng()
+			};
+			getWeather(locationWeather);
+		} else {
+			alert("Geocode was not successful for the following reason: " + status);
+		}
 	});
 }
 
