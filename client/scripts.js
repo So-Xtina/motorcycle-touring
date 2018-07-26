@@ -35,7 +35,7 @@ function openSearch(event, searchName) {
 function addPitStops(data) {
 	var findData = data.data;
 
-	console.log("PitStops Data: ", findData);
+	// console.log("PitStops Data: ", findData);
 
 	for (var i = 0; i < findData.length; i++) {
 		var resultDivs = document.createElement("div");
@@ -64,6 +64,7 @@ function addPitStops(data) {
 		var readMoreContent = document.createTextNode("More Info");
 		findsReadMore.className = "yelpLink";
 		findsReadMore.setAttribute("href", findData[i]["url"]);
+		findsReadMore.setAttribute("target", "blank");
 		findsReadMore.appendChild(readMoreContent);
 
 		findsInfo.append(findsTitle);
@@ -88,7 +89,6 @@ function addPitStops(data) {
 
 //Weather
 function addWeather(data) {
-	debugger;
 	var weather = data.daily.data;
 	for (var i = 0; i < weather.length; i++) {
 		var resultDivs = document.createElement("div");
@@ -99,9 +99,10 @@ function addWeather(data) {
 
 		var weatherImg = document.createElement("IMG");
 		weatherImg.setAttribute("src", `${forecastImg(weather[i]["icon"])}`);
-		var weatherDate = new Date(weather[i]["time"]);
+		var weatherDate = new Date(weather[i]["time"] * 1000);
+		var dateString = weatherDate.toGMTString();
 		var time = document.createElement("P");
-		var timeContent = document.createTextNode(weatherDate);
+		var timeContent = document.createTextNode(dateString);
 		time.className = "weather-time";
 		time.appendChild(timeContent);
 
@@ -110,9 +111,34 @@ function addWeather(data) {
 
 		var infoContainer = document.createElement("div");
 		infoContainer.className = "weather-info";
+
+		var highTemp = document.createElement("P");
+		highTemp.className = "highTemp";
+		var highInfo = document.createTextNode("Temp High: " + weather[i]["temperatureHigh"] + "˚F");
+		highTemp.appendChild(highInfo);
+		var lowTemp = document.createElement("P");
+		lowTemp.className = "lowTemp";
+		var lowInfo = document.createTextNode("Temp Low: " + weather[i]["temperatureLow"] + "˚F");
+		lowTemp.appendChild(lowInfo);
+		var precipProb = document.createElement("P");
+		precipProb.className = "precipProb";
+		var precipInfo = document.createTextNode(
+			"Precipitation Probability: " + weather[i]["precipProbability"] * 100 + "%"
+		);
+		precipProb.appendChild(precipInfo);
+		var windSpeed = document.createElement("P");
+		windSpeed.className = "windSpeed";
+		var windInfo = document.createTextNode("Wind Speed: " + weather[i]["windSpeed"] + " miles per hour");
+		windSpeed.appendChild(windInfo);
 		var weatherSummary = document.createElement("P");
-		var summaryInfo = document.createTextNode(weather[i]["summary"]);
+		weatherSummary.className = "weatherSum";
+		var summaryInfo = document.createTextNode("Weather Summary: " + weather[i]["summary"]);
 		weatherSummary.appendChild(summaryInfo);
+
+		infoContainer.append(highTemp);
+		infoContainer.append(lowTemp);
+		infoContainer.append(precipProb);
+		infoContainer.append(windSpeed);
 		infoContainer.append(weatherSummary);
 
 		resultDivs.append(imgContainer);
@@ -121,6 +147,8 @@ function addWeather(data) {
 		var newDiv = document.querySelector("div.findWeather");
 		newDiv.appendChild(resultDivs);
 	}
+
+	emptyOutResults();
 }
 
 //Routes
@@ -141,11 +169,16 @@ function addWeather(data) {
 //empty out search results for new search;
 
 function emptyOutResults() {
-	document.getElementById("go").addEventListener("click", function() {
+	document.getElementById("go-pit").addEventListener("click", function() {
 		document.querySelector("div.findPitStops").innerHTML = "";
 		addPitStops();
 	});
-	// findWeather.innerHTML = "";
+
+	document.getElementById("go-weather").addEventListener("click", function() {
+		document.querySelector("div.findWeather").innerHTML = "";
+		addWeather();
+	});
+
 	// findRoutes.innerHTML = "";
 }
 
@@ -199,12 +232,12 @@ function getWeather(locationWeather) {
 			longitude: long
 		},
 		success: function(data) {
-			console.log("The response: ", data);
+			console.log("Dark Sky Response: ", data);
 
 			addWeather(data);
 		},
 		failure: function(err) {
-			console.log("The error: ", err);
+			console.log("Dark Sky Error: ", err);
 		}
 	};
 
@@ -258,12 +291,12 @@ function getBusiness() {
 			location: searchLocation
 		},
 		success: function(data) {
-			console.log("The response: ", data);
+			console.log("Yelp Response: ", data);
 
 			addPitStops(data);
 		},
 		failure: function(err) {
-			console.log("The error: ", err);
+			console.log("Yelp Error: ", err);
 		}
 	};
 
@@ -272,9 +305,9 @@ function getBusiness() {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow, lat, lng;
+var map, infoWindow;
 function initMap(data) {
-	// debugger;
+	debugger;
 	console.log("initMap data: ", data);
 	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -298,6 +331,15 @@ function initMap(data) {
 			var marker = new google.maps.Marker({
 				position: latLng,
 				map: map
+			});
+
+			marker.addListener("click", function(event) {
+				console.log("I'm here!", event);
+				debugger;
+				var endPoint = {
+					lat: event.latLng.lat(),
+					long: event.latLng.lng()
+				};
 			});
 		}
 	}
