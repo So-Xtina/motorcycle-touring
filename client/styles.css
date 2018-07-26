@@ -472,7 +472,7 @@ footer {
 	font-family: "Roboto", "sans-serif";
 	line-height: 1.875em;
 	padding-left: 0.625em;
-	border: 0.1em solid red;
+	/* border: 0.1em solid red; */
 }
 
 #right-panel select,
@@ -491,4 +491,30 @@ footer {
 .panel {
 	height: 100%;
 	overflow: auto;
+}
+
+/******************** Weather Results ********************/
+.forecast-img-time,
+.weather-info {
+	display: inline-block;
+}
+
+.forecast-img-time {
+	height: 100%;
+	width: 30%;
+	word-wrap: break-word;
+}
+
+.forecast-img-time p {
+	margin: 0;
+	font-size: 0.75em;
+}
+
+.weather-info {
+	height: 100%;
+	width: 70%;
+}
+
+.weather-info p {
+	margin: 0;
 }
