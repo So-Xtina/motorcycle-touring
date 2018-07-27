@@ -151,20 +151,6 @@ function addWeather(data) {
 	emptyOutResults();
 }
 
-//Routes
-// function addRoutes() {
-// 	for (var i = 0; i <= 5; i++) {
-// 		var resultDivs = document.createElement("div");
-// 		resultDivs.className = "outcome-routes";
-
-// 		var resultContent = document.createTextNode("Search " + i);
-// 		resultDivs.appendChild(resultContent);
-
-// 		var newDiv = document.querySelector("div.findRoutes");
-// 		newDiv.appendChild(resultDivs);
-// 	}
-// }
-
 /****************Empty out Container*******************/
 //empty out search results for new search;
 
@@ -178,8 +164,6 @@ function emptyOutResults() {
 		document.querySelector("div.findWeather").innerHTML = "";
 		addWeather();
 	});
-
-	// findRoutes.innerHTML = "";
 }
 
 /******************** Weather Forecast Icons **********************/
@@ -305,7 +289,7 @@ function getBusiness() {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow;
+var map, infoWindow, userLocation;
 function initMap(data) {
 	debugger;
 	console.log("initMap data: ", data);
@@ -334,12 +318,7 @@ function initMap(data) {
 			});
 
 			marker.addListener("click", function(event) {
-				console.log("I'm here!", event);
-				debugger;
-				var endPoint = {
-					lat: event.latLng.lat(),
-					long: event.latLng.lng()
-				};
+				displayRoute(userLocation, event.latLng, directionsService, directionsDisplay);
 			});
 		}
 	}
@@ -359,7 +338,7 @@ function initMap(data) {
 		navigator.geolocation.getCurrentPosition(
 			function(position) {
 				var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
-
+				userLocation = pos;
 				infoWindow.setPosition(pos);
 				infoWindow.setContent(" Location found. ");
 				infoWindow.open(map);
@@ -375,6 +354,7 @@ function initMap(data) {
 	}
 
 	directionsDisplay.addListener("directions_changed", function() {
+		debugger;
 		computeTotalDistance(directionsDisplay.getDirections());
 	});
 }
