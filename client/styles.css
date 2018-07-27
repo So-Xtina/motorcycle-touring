@@ -190,10 +190,15 @@ header {
 	transform: translate(-49%, -23%);
 }
 
-.findRoutes,
 .findWeather,
 .findPitStops {
 	height: 90%;
+	width: 100%;
+	overflow-y: scroll;
+}
+
+.findRoutes {
+	height: 100%;
 	width: 100%;
 	overflow-y: scroll;
 }
