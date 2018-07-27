@@ -289,18 +289,19 @@ function getBusiness() {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow, userLocation;
+var map, infoWindow, userLocation, popup, Popup;
 function initMap(data) {
 	debugger;
 	console.log("initMap data: ", data);
+
 	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
-	map = new google.maps.Map(document.getElementById("map"), {
+	var map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 3.9,
 		center: unitedStatesCenterPoint,
 		mapTypeId: google.maps.MapTypeId.TERRAIN
 	});
 
-	//Geocode, grabbing lat and lng
+	// //Geocode, grabbing lat and lng
 	var geocoder = new google.maps.Geocoder();
 
 	document.getElementById("go-weather").addEventListener("click", function() {
@@ -317,13 +318,22 @@ function initMap(data) {
 				map: map
 			});
 
-			marker.addListener("click", function(event) {
-				displayRoute(userLocation, event.latLng, directionsService, directionsDisplay);
-			});
+			var infoWindow = new google.maps.InfoWindow();
+
+			var content = data[i]["name"];
+			google.maps.event.addListener(
+				marker,
+				"click",
+				(function(marker, content, infowindow) {
+					return function(event) {
+						infowindow.setContent(content);
+						infowindow.open(map, marker);
+						displayRoute(userLocation, event.latLng, directionsService, directionsDisplay);
+					};
+				})(marker, content, infoWindow)
+			);
 		}
 	}
-
-	infoWindow = new google.maps.InfoWindow();
 
 	// directions to the yelp destination from the current location of the user
 	var directionsService = new google.maps.DirectionsService();
@@ -338,12 +348,12 @@ function initMap(data) {
 		navigator.geolocation.getCurrentPosition(
 			function(position) {
 				var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+				var infoWindow = new google.maps.InfoWindow();
 				userLocation = pos;
 				infoWindow.setPosition(pos);
 				infoWindow.setContent(" Location found. ");
 				infoWindow.open(map);
 				map.setCenter(pos);
-				displayRoute(pos, latLng, directionsService, directionsDisplay);
 			},
 			function() {
 				handleLocationError(true, infoWindow, map.getCenter());
@@ -354,7 +364,6 @@ function initMap(data) {
 	}
 
 	directionsDisplay.addListener("directions_changed", function() {
-		debugger;
 		computeTotalDistance(directionsDisplay.getDirections());
 	});
 }
