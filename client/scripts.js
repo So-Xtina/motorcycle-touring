@@ -3,6 +3,7 @@
 //Default tab that will show automatically when page is loaded;
 window.addEventListener("load", function() {
 	document.getElementById("pitStops").style.display = "block";
+	loader();
 });
 
 //tab search;
@@ -123,7 +124,7 @@ function addWeather(data) {
 		var precipProb = document.createElement("P");
 		precipProb.className = "precipProb";
 		var precipInfo = document.createTextNode(
-			"Precipitation Probability: " + weather[i]["precipProbability"] * 100 + "%"
+			"Precipitation Probability: " + (weather[i]["precipProbability"] * 100).toFixed(2) + "%"
 		);
 		precipProb.appendChild(precipInfo);
 		var windSpeed = document.createElement("P");
@@ -204,6 +205,8 @@ function forecastImg(summary) {
 
 /******************* Weather API *********************/
 function getWeather(locationWeather) {
+	document.getElementById("loader").style.display = "block";
+
 	var lat = locationWeather["lat"];
 	var long = locationWeather["lng"];
 
@@ -216,11 +219,13 @@ function getWeather(locationWeather) {
 			longitude: long
 		},
 		success: function(data) {
+			document.getElementById("loader").style.display = "none";
 			console.log("Dark Sky Response: ", data);
 
 			addWeather(data);
 		},
 		failure: function(err) {
+			document.getElementById("loader").style.display = "none";
 			console.log("Dark Sky Error: ", err);
 		}
 	};
@@ -263,6 +268,8 @@ function stars(reviews) {
 /*********************YELP API*********************/
 
 function getBusiness() {
+	document.getElementById("loader").style.display = "block";
+
 	var searchValue = $("#search-p").val();
 	var searchLocation = $("#location-p").val();
 
@@ -275,11 +282,13 @@ function getBusiness() {
 			location: searchLocation
 		},
 		success: function(data) {
+			document.getElementById("loader").style.display = "none";
 			console.log("Yelp Response: ", data);
 
 			addPitStops(data);
 		},
 		failure: function(err) {
+			document.getElementById("loader").style.display = "none";
 			console.log("Yelp Error: ", err);
 		}
 	};
@@ -294,10 +303,10 @@ function initMap(data) {
 	debugger;
 	console.log("initMap data: ", data);
 
-	var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
+	// var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
 	var map = new google.maps.Map(document.getElementById("map"), {
-		zoom: 3.9,
-		center: unitedStatesCenterPoint,
+		zoom: 11,
+		center: userLocation,
 		mapTypeId: google.maps.MapTypeId.TERRAIN
 	});
 
@@ -321,13 +330,18 @@ function initMap(data) {
 			var infoWindow = new google.maps.InfoWindow();
 
 			var content = data[i]["name"];
+			var currentInfoWindow = null;
 			google.maps.event.addListener(
 				marker,
 				"click",
 				(function(marker, content, infowindow) {
 					return function(event) {
+						if (currentInfoWindow !== null) {
+							currentInfoWindow.close();
+						}
 						infowindow.setContent(content);
 						infowindow.open(map, marker);
+						currentInfoWindow = infowindow;
 						displayRoute(userLocation, event.latLng, directionsService, directionsDisplay);
 					};
 				})(marker, content, infoWindow)
@@ -427,4 +441,19 @@ function computeTotalDistance(result) {
 	total = total / 1000;
 
 	document.getElementById("total").innerHTML = total + " km";
+}
+
+/*******************Page Loader ********************/
+function loader() {
+	var loader = document.createElement("div");
+	loader.className = "ldr-roller";
+	loader.setAttribute("id", "loader");
+
+	for (var i = 0; i < 8; i++) {
+		var div = document.createElement("div");
+		loader.append(div);
+	}
+
+	var page = document.querySelector("div.container");
+	page.appendChild(loader);
 }
