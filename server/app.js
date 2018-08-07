@@ -25,12 +25,12 @@ app.use(express.static(path.join(__dirname, "..", "client")));
 
 //YELP ENDPOINT
 app.post("/yelp-search", async (req, res) => {
-	const { term, location } = req.body;
+	const { term, location, limit, offset } = req.body;
 	console.log("this is the term: ", term);
 	let output = {};
 
 	await client
-		.search({ term, location })
+		.search({ term, location, limit, offset })
 		.then(response => {
 			output.success = true;
 			output.data = response.jsonBody.businesses;

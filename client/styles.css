@@ -524,6 +524,11 @@ footer {
 	margin: 0;
 }
 
+/*************** Pages for Yelp Results (pagination) ****************/
+.pagination {
+	display: inline-block;
+}
+
 /*************** LOADER *****************/
 #loader {
 	display: none;
