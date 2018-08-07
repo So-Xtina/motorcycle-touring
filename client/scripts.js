@@ -36,7 +36,7 @@ function openSearch(event, searchName) {
 function addPitStops(data) {
 	var findData = data.data;
 
-	// console.log("PitStops Data: ", findData);
+	console.log("PitStops Data: ", findData);
 
 	for (var i = 0; i < findData.length; i++) {
 		var resultDivs = document.createElement("div");
@@ -81,8 +81,29 @@ function addPitStops(data) {
 		resultDivs.append(findsInfo);
 
 		var newDiv = document.querySelector("div.findPitStops");
-		newDiv.appendChild(resultDivs);
+		newDiv.append(resultDivs);
 	}
+
+	var pagination = document.createElement("div");
+	pagination.className = "pagination";
+
+	debugger;
+	for (var j = 1; j < 6; j++) {
+		var pageNum = document.createElement("button");
+		pageNum.className = "pages";
+		pageNum.setAttribute("id", "pageNum");
+		var pageNumContent = document.createTextNode(j);
+		pageNum.appendChild(pageNumContent);
+
+		pagination.append(pageNum);
+
+		pageNum.addEventListener("click", function() {
+			document.querySelector("div.findPitStops").innerHTML = "";
+			yelpPagination();
+		});
+	}
+
+	newDiv.append(pagination);
 
 	initMap(findData);
 	emptyOutResults();
@@ -158,6 +179,8 @@ function addWeather(data) {
 function emptyOutResults() {
 	document.getElementById("go-pit").addEventListener("click", function() {
 		document.querySelector("div.findPitStops").innerHTML = "";
+		searchValue = "";
+		searchLocation = "";
 		addPitStops();
 	});
 
@@ -233,6 +256,15 @@ function getWeather(locationWeather) {
 	$.ajax(options);
 }
 
+/******************* Yelp Results Pagination *******************/
+function yelpPagination() {
+	var num = event.target.textContent;
+
+	var offset = parseInt(10 * num + 1);
+
+	getBusiness(offset);
+}
+
 /********************Yelp Star Reviews**********************/
 //switching out the star images according to the ratings for the yelp reviews
 //of the businesses
@@ -266,12 +298,16 @@ function stars(reviews) {
 }
 
 /*********************YELP API*********************/
+var searchValue = "";
+var searchLocation = "";
 
-function getBusiness() {
+function getBusiness(offset) {
 	document.getElementById("loader").style.display = "block";
 
-	var searchValue = $("#search-p").val();
-	var searchLocation = $("#location-p").val();
+	if (searchValue === "" && searchLocation === "") {
+		searchValue = $("#search-p").val();
+		searchLocation = $("#location-p").val();
+	}
 
 	var options = {
 		url: "/yelp-search",
@@ -279,7 +315,9 @@ function getBusiness() {
 		dataType: "JSON",
 		data: {
 			term: searchValue,
-			location: searchLocation
+			location: searchLocation,
+			limit: 10,
+			offset: offset
 		},
 		success: function(data) {
 			document.getElementById("loader").style.display = "none";
@@ -320,12 +358,20 @@ function initMap(data) {
 
 	// creating the markers for the map from yelp api
 	if (data) {
+		var image = {
+			url: "../images/motorbike.png",
+			size: new google.maps.Size(32, 32),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(0, 32)
+		};
+
 		for (var i = 0; i < data.length; i++) {
 			var coords = data[i]["coordinates"];
 			var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
 			var marker = new google.maps.Marker({
 				position: latLng,
-				map: map
+				map: map,
+				icon: image
 			});
 
 			var infoWindow = new google.maps.InfoWindow();
