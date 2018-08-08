@@ -2,7 +2,7 @@
 
 //Default tab that will show automatically when page is loaded;
 window.addEventListener("load", function() {
-	document.getElementById("pitStops").style.display = "block";
+	document.getElementById("weather").style.display = "block";
 	loader();
 });
 
@@ -336,7 +336,8 @@ function getBusiness(offset) {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow, userLocation, popup, Popup;
+var map, infoWindow, userLocation, popup, Popup, userMarker;
+var currentMarker = null;
 function initMap(data) {
 	// debugger;
 	console.log("initMap data: ", data);
@@ -349,7 +350,7 @@ function initMap(data) {
 		styles: mapStyle
 	});
 
-	// //Geocode, grabbing lat and lng
+	//Geocode, grabbing lat and lng
 	var geocoder = new google.maps.Geocoder();
 
 	document.getElementById("go-weather").addEventListener("click", function() {
@@ -368,7 +369,7 @@ function initMap(data) {
 		for (var i = 0; i < data.length; i++) {
 			var coords = data[i]["coordinates"];
 			var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
-			var marker = new google.maps.Marker({
+			marker = new google.maps.Marker({
 				position: latLng,
 				map: map,
 				icon: image
@@ -383,12 +384,20 @@ function initMap(data) {
 				"click",
 				(function(marker, content, infowindow) {
 					return function(event) {
+						//if the previous info window is not null after the next marker is clicked close it
 						if (currentInfoWindow !== null) {
 							currentInfoWindow.close();
 						}
 						infowindow.setContent(content);
 						infowindow.open(map, marker);
 						currentInfoWindow = infowindow;
+
+						//if the previous marker before the next click is not null, set it to visible
+						if (currentMarker !== null) {
+							currentMarker.setVisible(true);
+						}
+
+						currentMarker = marker;
 						displayRoute(userLocation, event.latLng, directionsService, directionsDisplay);
 					};
 				})(marker, content, infoWindow)
@@ -412,9 +421,35 @@ function initMap(data) {
 				var infoWindow = new google.maps.InfoWindow();
 				userLocation = pos;
 				infoWindow.setPosition(pos);
-				infoWindow.setContent(" Location found. ");
-				infoWindow.open(map);
+				// infoWindow.setContent(" Location found. ");
+				// infoWindow.open(map);
 				map.setCenter(pos);
+
+				var iconHere = {
+					url: "../images/user.png",
+					size: new google.maps.Size(32, 32),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(0, 32)
+				};
+
+				userMarker = new google.maps.Marker({
+					position: pos,
+					icon: iconHere,
+					map
+				});
+
+				google.maps.event.addListener(
+					userMarker,
+					"click",
+					(function(userMarker, infowindow) {
+						return function(event) {
+							infowindow.setContent(" User Location Found. ");
+							infowindow.open(map, userMarker);
+						};
+					})(userMarker, infoWindow)
+				);
+
+				getWeather(pos);
 			},
 			function() {
 				handleLocationError(true, infoWindow, map.getCenter());
@@ -438,6 +473,7 @@ function geocodeAddress(geocoder, resultsMap) {
 				lat: results[0].geometry.location.lat(),
 				lng: results[0].geometry.location.lng()
 			};
+
 			getWeather(locationWeather);
 		} else {
 			alert("Geocode was not successful for the following reason: " + status);
@@ -470,6 +506,8 @@ function displayRoute(origin, destination, service, display) {
 		function(response, status) {
 			if (status === "OK") {
 				display.setDirections(response);
+				userMarker.setVisible(false);
+				currentMarker.setVisible(false);
 			} else {
 				alert("Could not display directions due to: " + status);
 			}

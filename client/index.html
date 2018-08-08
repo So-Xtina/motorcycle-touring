@@ -28,25 +28,9 @@
             </div>
             <div class="results">
                 <div class="tab">
-                    <button class="tabLinks" onclick="openSearch(event, 'routes')">Routes</button>
                     <button class="tabLinks" onclick="openSearch(event, 'weather')">Weather</button>
                     <button class="tabLinks" onclick="openSearch(event, 'pitStops')">Pit-Stops</button>
-                </div>
-
-                <div id="routes" class="tabContent">
-                    <!-- <form class="search searchFormRoutes">
-                        <span>Routes</span>
-                        <input class="search-routes" type="text" placeholder="Start Point" maxlength="100" id="start-r">
-                        <input class="search-routes-loc" type="text" placeholder="End Point" maxlength="100" id="end-r">
-                        <button id="go" class="go-routes" type="button">Go</button>
-                    </form> -->
-                    <div class="findRoutes">
-                        <div id="right-panel">
-                            <p>Total Distance:
-                                <span id="total"></span>
-                            </p>
-                        </div>
-                    </div>
+                    <button class="tabLinks" onclick="openSearch(event, 'routes')">Routes</button>
                 </div>
 
                 <div id="weather" class="tabContent">
@@ -69,6 +53,16 @@
                     </form>
                     <div class="findPitStops">
 
+                    </div>
+                </div>
+
+                <div id="routes" class="tabContent">
+                    <div class="findRoutes">
+                        <div id="right-panel">
+                            <p>Total Distance:
+                                <span id="total"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
