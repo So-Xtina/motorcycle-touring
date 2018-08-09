@@ -4,6 +4,11 @@
 window.addEventListener("load", function() {
 	document.getElementById("weather").style.display = "block";
 	loader();
+
+	document.getElementById("go-weather").addEventListener("click", function() {
+		document.querySelector("div.findWeather").innerHTML = "";
+		geocodeAddress(geocoder, map);
+	});
 });
 
 //tab search;
@@ -31,10 +36,10 @@ function openSearch(event, searchName) {
 
 /********************Dynamically create finds********************/
 //dynamically populate the search find results onto the page;
-
+var findData = null;
 //Pit-Stops
 function addPitStops(data) {
-	var findData = data.data;
+	findData = data.data;
 
 	console.log("PitStops Data: ", findData);
 
@@ -57,25 +62,45 @@ function addPitStops(data) {
 		var titleContent = document.createTextNode(findData[i]["name"]);
 		findsTitle.appendChild(titleContent);
 
+		var ratingImg = document.createElement("IMG");
+		ratingImg.setAttribute("src", `${stars(findData[i]["rating"])}`);
+
 		var findsReviewCount = document.createElement("P");
 		var reviewCountContent = document.createTextNode("Based on " + findData[i]["review_count"] + " Reviews");
 		findsReviewCount.appendChild(reviewCountContent);
 
+		var moreLink = document.createElement("div");
+		moreLink.className = "readMore";
 		var findsReadMore = document.createElement("a");
 		var readMoreContent = document.createTextNode("More Info");
 		findsReadMore.className = "yelpLink";
 		findsReadMore.setAttribute("href", findData[i]["url"]);
 		findsReadMore.setAttribute("target", "blank");
 		findsReadMore.appendChild(readMoreContent);
+		moreLink.appendChild(findsReadMore);
+
+		var yelpImg = document.createElement("div");
+		yelpImg.className = "yelpImgContainer";
+		var yelpLinkTag = document.createElement("a");
+		yelpLinkTag.setAttribute("href", "https://www.yelp.com/");
+		yelpLinkTag.setAttribute("target", "_blank");
+		var yelpTradeMark = document.createElement("img");
+		yelpTradeMark.className = "yelpTradeMarkPic";
+		yelpTradeMark.setAttribute("src", "../yelp_logo_trademark/screen_r/Yelp_trademark_RGB.png");
+		yelpLinkTag.appendChild(yelpTradeMark);
+
+		yelpImg.appendChild(yelpLinkTag);
 
 		findsInfo.append(findsTitle);
 
-		var ratingImg = document.createElement("IMG");
-		ratingImg.setAttribute("src", `${stars(findData[i]["rating"])}`);
-		findsInfo.append(ratingImg);
+		var starReviews = document.createElement("div");
+		starReviews.className = "starsContainer";
+		starReviews.append(ratingImg);
+		starReviews.append(findsReviewCount);
 
-		findsInfo.append(findsReviewCount);
-		findsInfo.append(findsReadMore);
+		findsInfo.append(starReviews);
+		findsInfo.append(moreLink);
+		findsInfo.append(yelpImg);
 
 		resultDivs.append(imgContainer);
 		resultDivs.append(findsInfo);
@@ -84,10 +109,10 @@ function addPitStops(data) {
 		newDiv.append(resultDivs);
 	}
 
+	//creating buttons for pagination for the yelp results
 	var pagination = document.createElement("div");
 	pagination.className = "pagination";
 
-	debugger;
 	for (var j = 1; j < 6; j++) {
 		var pageNum = document.createElement("button");
 		pageNum.className = "pages";
@@ -106,7 +131,7 @@ function addPitStops(data) {
 	newDiv.append(pagination);
 
 	initMap(findData);
-	emptyOutResults();
+	emptyOutResultsYelp();
 }
 
 //Weather
@@ -169,24 +194,17 @@ function addWeather(data) {
 		var newDiv = document.querySelector("div.findWeather");
 		newDiv.appendChild(resultDivs);
 	}
-
-	emptyOutResults();
 }
 
 /****************Empty out Container*******************/
 //empty out search results for new search;
 
-function emptyOutResults() {
+function emptyOutResultsYelp() {
 	document.getElementById("go-pit").addEventListener("click", function() {
 		document.querySelector("div.findPitStops").innerHTML = "";
 		searchValue = "";
 		searchLocation = "";
 		addPitStops();
-	});
-
-	document.getElementById("go-weather").addEventListener("click", function() {
-		document.querySelector("div.findWeather").innerHTML = "";
-		addWeather();
 	});
 }
 
@@ -227,11 +245,12 @@ function forecastImg(summary) {
 }
 
 /******************* Weather API *********************/
-function getWeather(locationWeather) {
+
+function getWeather(weather) {
 	document.getElementById("loader").style.display = "block";
 
-	var lat = locationWeather["lat"];
-	var long = locationWeather["lng"];
+	var lat = weather["lat"];
+	var long = weather["lng"];
 
 	var options = {
 		url: "/forecast",
@@ -257,6 +276,7 @@ function getWeather(locationWeather) {
 }
 
 /******************* Yelp Results Pagination *******************/
+//creating the offset value for the pagination for the results on yelp
 function yelpPagination() {
 	var num = event.target.textContent;
 
@@ -336,26 +356,20 @@ function getBusiness(offset) {
 
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
-var map, infoWindow, userLocation, popup, Popup, userMarker;
+var map, infoWindow, popup, Popup, userLocation, geocoder;
 var currentMarker = null;
+var locationWeather = null;
 function initMap(data) {
-	// debugger;
 	console.log("initMap data: ", data);
 
-	// var unitedStatesCenterPoint = { lat: 37.09024, lng: -95.712891 };
-	var map = new google.maps.Map(document.getElementById("map"), {
+	map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 11,
 		center: userLocation,
-		// mapTypeId: google.maps.MapTypeId.TERRAIN
 		styles: mapStyle
 	});
 
 	//Geocode, grabbing lat and lng
-	var geocoder = new google.maps.Geocoder();
-
-	document.getElementById("go-weather").addEventListener("click", function() {
-		geocodeAddress(geocoder, map);
-	});
+	geocoder = new google.maps.Geocoder();
 
 	// creating the markers for the map from yelp api
 	if (data) {
@@ -421,10 +435,14 @@ function initMap(data) {
 				var infoWindow = new google.maps.InfoWindow();
 				userLocation = pos;
 				infoWindow.setPosition(pos);
-				// infoWindow.setContent(" Location found. ");
-				// infoWindow.open(map);
 				map.setCenter(pos);
 
+				//calls the weather api as user location is found on page load
+				if (locationWeather === null && findData === null) {
+					getWeather(userLocation);
+				}
+
+				//created a custom user icon for geolocation
 				var iconHere = {
 					url: "../images/user.png",
 					size: new google.maps.Size(32, 32),
@@ -443,13 +461,11 @@ function initMap(data) {
 					"click",
 					(function(userMarker, infowindow) {
 						return function(event) {
-							infowindow.setContent(" User Location Found. ");
+							infowindow.setContent(" User Location ");
 							infowindow.open(map, userMarker);
 						};
 					})(userMarker, infoWindow)
 				);
-
-				getWeather(pos);
 			},
 			function() {
 				handleLocationError(true, infoWindow, map.getCenter());
@@ -469,7 +485,7 @@ function geocodeAddress(geocoder, resultsMap) {
 	var address = document.getElementById("address").value;
 	geocoder.geocode({ address: address }, function(results, status) {
 		if (status === "OK") {
-			var locationWeather = {
+			locationWeather = {
 				lat: results[0].geometry.location.lat(),
 				lng: results[0].geometry.location.lng()
 			};
@@ -499,7 +515,6 @@ function displayRoute(origin, destination, service, display) {
 		{
 			origin: origin,
 			destination: destination,
-			// waypoints: [{ location: "" }, { location: "" }],
 			travelMode: "DRIVING",
 			avoidTolls: true
 		},
@@ -530,6 +545,8 @@ function computeTotalDistance(result) {
 }
 
 /*******************Page Loader ********************/
+//dynamically creating the page loader when grabbing data
+
 function loader() {
 	var loader = document.createElement("div");
 	loader.className = "ldr-roller";
