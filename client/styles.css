@@ -192,7 +192,7 @@ header {
 
 .findWeather,
 .findPitStops {
-	height: 90%;
+	height: 88%;
 	width: 100%;
 	overflow-y: scroll;
 }
@@ -213,14 +213,25 @@ header {
 	margin: 0.7em;
 	background-color: beige;
 	display: inline-block;
+	border-radius: 0.5em;
+}
+
+.outcome-pitStops-img,
+.outcome-pitStops-info {
+	display: inline-block;
+	vertical-align: top;
 }
 
 .outcome-pitStops-img {
-	width: 30%;
+	height: 70%;
+	padding-top: 2%;
+	width: 26%;
 }
 
 .outcome-pitStops-info {
+	height: 70%;
 	width: 65%;
+	padding-top: 2%;
 }
 
 .outcome-pitStops-info h1,
@@ -230,13 +241,52 @@ header {
 
 .outcome-pitStops-img img {
 	height: 100%;
+	border-radius: 5%;
 }
 
-.outcome-pitStops-img,
-.outcome-pitStops-info {
-	height: 95%;
-	/* margin: 0.5em; */
+.starsContainer {
+	height: 33%;
+	width: 100%;
+	padding-top: 2%;
+	position: relative;
+}
+
+.starsContainer img,
+.starsContainer p {
 	display: inline-block;
+	position: absolute;
+}
+
+.starsContainer img {
+	left: 20%;
+}
+
+.starsContainer p {
+	right: 18%;
+	margin: 0;
+}
+
+.readMore {
+	height: 20%;
+	width: auto;
+	padding-top: 3%;
+}
+
+.yelpLink {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.yelpImgContainer {
+	width: 21%;
+	height: 35%;
+	position: relative;
+}
+
+.yelpTradeMarkPic {
+	position: absolute;
+	left: 23em;
+	bottom: -37%;
 }
 
 @media screen and (max-width: 86rem) and (orientation: landscape) {
