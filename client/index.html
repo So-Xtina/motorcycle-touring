@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Grand Tour</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzqOqkekadLVFvQJUIszm9Vz-VMwLOOEk&callback=initMap">
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <h1 class="title">The Grand Tour</h1>
+            <h3 class="detail">Welcome to the Grand Motorcycle Tour, where you will find all your travel needs.</h3>
+        </div>
+    </header>
+
+    <section class="main-page">
+        <div class="container">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            <div class="results">
+                <div class="tab">
+                    <button class="tabLinks" onclick="openSearch(event, 'weather')">Weather</button>
+                    <button class="tabLinks" onclick="openSearch(event, 'pitStops')">Pit-Stops</button>
+                    <button class="tabLinks" onclick="openSearch(event, 'routes')">Routes</button>
+                </div>
+
+                <div id="weather" class="tabContent">
+                    <form class="search searchFormWeather">
+                        <span>Weather</span>
+                        <input class="search-weather" type="textbox" placeholder="Zip code...City..." maxlength="100" id="address">
+                        <button id="go-weather" class="go-weather" type="button">Go</button>
+                    </form>
+                    <div class="findWeather">
+
+                    </div>
+                </div>
+
+                <div id="pitStops" class="tabContent">
+                    <form class="search searchFormPitStops">
+                        <span>Pit-Stops</span>
+                        <input class="search-pitStops" type="text" placeholder="Search..." maxlength="100" id="search-p">
+                        <input class="search-pitStops-loc" type="text" placeholder="Location..." maxlength="100" id="location-p">
+                        <button onclick="getBusiness()" id="go-pit" class="go-pitStops" type="button">Go</button>
+                    </form>
+                    <div class="findPitStops">
+
+                    </div>
+                </div>
+
+                <div id="routes" class="tabContent">
+                    <div class="findRoutes">
+                        <div id="right-panel">
+                            <p>Total Distance:
+                                <span id="total"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <Footer>
+        <h5 class="copyright">Copyright © 2018 The Grand Tour. All rights reserved.</h5>
+        <div class="icon-moto">Icons made by
+            <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from
+            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
+            <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+        </div>
+    </Footer>
+
+</body>
+
+</html>
