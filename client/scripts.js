@@ -146,6 +146,7 @@ function addWeather(data) {
 
 		var weatherImg = document.createElement("IMG");
 		weatherImg.setAttribute("src", `${forecastImg(weather[i]["icon"])}`);
+		weatherImg.className = "weather-icon";
 		var weatherDate = new Date(weather[i]["time"] * 1000);
 		var dateString = weatherDate.toGMTString();
 		var time = document.createElement("P");
