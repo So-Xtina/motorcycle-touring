@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	cursor: default;
 }
 
 body {
@@ -7,7 +8,7 @@ body {
 	/* padding: 0; */
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
-	background-image: url("images/asphalt-blue-clouds-1133505.jpg");
+	background-image: url("images/pexels-photo-110575.jpeg");
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -17,6 +18,21 @@ img {
 	height: auto;
 }
 
+html {
+	font-size: 1rem;
+}
+
+@media screen and (min-width: 20rem) {
+	html {
+		font-size: calc(1rem + 6 * ((100vw - 320px) / 680));
+	}
+}
+
+@media screen and (min-width: 62.5rem) {
+	html {
+		font-size: 1.375rem;
+	}
+}
 /*****************Header********************/
 
 header {
@@ -27,9 +43,9 @@ header {
 
 .header-container {
 	height: 95%;
-	width: 50%;
-	background: rgba(220, 211, 202, 0.815);
-	border-radius: 1em;
+	width: auto;
+	background: rgba(255, 255, 255, 0.815);
+	/* border-radius: 1em; */
 	margin: 0 auto;
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
@@ -38,12 +54,29 @@ header {
 .detail {
 	margin: 0;
 	padding: 0.19em;
-	color: #ff3d00;
+	color: #bd8e00;
 }
 
-@media screen and (min-width: 85rem) and (orientation: landscape) {
+@media screen and (min-width: 64rem) and (orientation: portrait) {
+	.header-container {
+		height: 80%;
+		/* width: 95%; */
+	}
+}
+
+@media screen and (min-width: 64rem) and (orientation: landscape) {
+	.title,
+	.detail {
+		padding: 0;
+	}
+
 	.title {
-		padding: 0.1em;
+		font-size: 1.5em;
+		padding: 0.3em;
+	}
+
+	.detail {
+		font-size: 1em;
 	}
 }
 
@@ -57,26 +90,6 @@ header {
 	}
 }
 
-@media screen and (min-width: 64rem) and (orientation: portrait) {
-	.header-container {
-		height: 80%;
-		width: 95%;
-	}
-
-	.title,
-	.detail {
-		padding: 0.3em;
-	}
-
-	.title {
-		font-size: 2em;
-	}
-
-	.detail {
-		font-size: 1.5em;
-	}
-}
-
 @media screen and (max-width: 48rem) and (orientation: portrait) {
 	header {
 		padding-top: 1em;
@@ -84,18 +97,23 @@ header {
 
 	.header-container {
 		height: 90%;
-		width: 96%;
+		/* width: 96%; */
 	}
 
-	.title {
-		padding: 0.3em;
+	.detail {
+		font-size: 0.95em;
+		padding: 0;
+	}
+
+	.outcome-weather {
+		height: 33%;
 	}
 }
 
 @media screen and (max-width: 26rem) and (orientation: portrait) {
 	.header-container {
 		height: 82%;
-		width: 88%;
+		/* width: 88%; */
 	}
 
 	.detail {
@@ -123,13 +141,13 @@ header {
 
 .map-container {
 	height: 93%;
-	width: 47%;
+	width: 46%;
 	position: relative;
 }
 
 .results {
 	height: 93%;
-	width: 47%;
+	width: 46%;
 	overflow: hidden;
 }
 
@@ -137,8 +155,9 @@ header {
 .results {
 	margin: 1.9em 1em;
 	display: inline-block;
-	background: rgba(236, 236, 236, 0.6);
-	border-radius: 1em;
+	vertical-align: top;
+	background: rgba(236, 236, 236, 0.32);
+	border-radius: 0.5em;
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -146,7 +165,8 @@ header {
 	height: 10%;
 	width: 100%;
 	position: relative;
-	background-color: rgba(252, 235, 196, 0.8);
+	/* background-color: rgba(252, 235, 196, 0.8); */
+	background-color: rgb(149, 183, 217, 0.8);
 	/* border-radius: 1em 1em 0 0; */
 }
 
@@ -160,17 +180,24 @@ header {
 }
 
 .search-routes,
-.search-weather,
 .search-pitStops {
 	top: 46%;
 	left: 30%;
+	text-align: center;
 	/* transform: translate(-60%, -50%); */
+}
+
+.search-weather {
+	top: 46%;
+	left: 41%;
+	text-align: center;
 }
 
 .search-routes-loc,
 .search-pitStops-loc {
 	top: 46%;
 	left: 49%;
+	text-align: center;
 	position: absolute;
 }
 
@@ -181,13 +208,18 @@ header {
 }
 
 .go-routes,
-.go-weather,
 .go-pitStops {
-	left: 70%;
-	top: 50%;
+	left: 68%;
+	top: 45%;
 	padding: 0.3em;
 	border-radius: 0.5em;
-	transform: translate(-49%, -23%);
+}
+
+.go-weather {
+	left: 60%;
+	top: 44%;
+	padding: 0.3em;
+	border-radius: 0.5em;
 }
 
 .findWeather,
@@ -211,7 +243,7 @@ header {
 	border: 0.15em solid black;
 	border-color: rgba(0, 0, 0, 0.6);
 	margin: 0.7em;
-	background-color: beige;
+	background-color: #ffe491;
 	display: inline-block;
 	border-radius: 0.5em;
 }
@@ -255,14 +287,16 @@ header {
 .starsContainer p {
 	display: inline-block;
 	position: absolute;
+	vertical-align: top;
 }
 
 .starsContainer img {
-	left: 20%;
+	left: 7%;
+	height: 80%;
 }
 
 .starsContainer p {
-	right: 18%;
+	right: 11%;
 	margin: 0;
 }
 
@@ -285,7 +319,7 @@ header {
 
 .yelpTradeMarkPic {
 	position: absolute;
-	left: 23em;
+	left: 20em;
 	bottom: -37%;
 }
 
@@ -304,12 +338,61 @@ header {
 		visibility: hidden;
 	}
 
-	.search-routes,
-	.search-weather,
-	.search-pitStops {
+	.search-weather {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+	}
+
+	.search-pitStops {
+		top: 36%;
+		left: 38%;
+	}
+
+	.search-pitStops-loc {
+		top: 36%;
+		left: 51%;
+	}
+
+	.go-pitStops {
+		left: 64%;
+		top: 35%;
+	}
+
+	.go-weather {
+		left: 57%;
+		top: 35%;
+	}
+
+	.outcome-pitStops-img {
+		width: 22%;
+	}
+
+	.outcome-pitStops-info h1 {
+		font-size: 2em;
+	}
+
+	.outcome-pitStops-info h3 {
+		font-size: 1.5em;
+	}
+
+	.starsContainer img {
+		height: 75%;
+		left: 15%;
+	}
+
+	.starsContainer p {
+		right: 16%;
+		font-size: 1.3em;
+	}
+
+	.yelpTradeMarkPic {
+		left: 29em;
+		bottom: -52%;
+	}
+
+	.yelpLink {
+		font-size: 1.5em;
 	}
 }
 
@@ -334,9 +417,12 @@ header {
 	}
 
 	.go-routes,
-	.go-weather,
 	.go-pitStops {
-		transform: translate(-49%, -35%);
+		transform: translate(-81%, -40%);
+	}
+
+	.go-weather {
+		transform: translate(-20%, -33%);
 	}
 
 	.search span {
@@ -344,11 +430,103 @@ header {
 	}
 
 	.search-routes,
-	.search-weather,
 	.search-pitStops {
+		top: 32%;
+		left: 32%;
+	}
+
+	.search-routes-loc,
+	.search-pitStops-loc {
+		top: 32%;
+		left: 49%;
+	}
+
+	.search-weather {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+	}
+
+	.outcome-weather,
+	.outcome-pitStops {
+		height: 33%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 23em;
+	}
+
+	.starsContainer {
+		padding: 0;
+	}
+
+	.starsContainer img {
+		left: 16%;
+		height: 83%;
+	}
+
+	.starsContainer p {
+		right: 10%;
+	}
+
+	.outcome-pitStops-img {
+		width: 14%;
+	}
+
+	.outcome-pitStops-info {
+		padding: 0;
+	}
+
+	.findWeather,
+	.findPitStops {
+		height: 82%;
+	}
+}
+
+@media screen and (max-width: 64rem) and (orientation: landscape) {
+	.search-pitStops {
+		top: 29%;
+		left: 33%;
+	}
+
+	.search-pitStops-loc {
+		top: 29%;
+	}
+
+	.go-pitStops {
+		left: 68%;
+		top: 28%;
+	}
+
+	.outcome-pitStops-info {
+		padding: 0;
+	}
+
+	.outcome-pitStops-info h1 {
+		font-size: 1.5em;
+	}
+
+	.starsContainer img {
+		left: 19%;
+	}
+
+	.starsContainer p {
+		right: 14%;
+		font-size: 1em;
+	}
+
+	.yelpTradeMarkPic {
+		left: 22em;
+		bottom: -50%;
+	}
+
+	.yelpLink {
+		font-size: 1.1em;
+	}
+
+	.go-weather {
+		left: 59%;
+		top: 30%;
 	}
 }
 
@@ -366,11 +544,56 @@ header {
 	}
 }
 
+@media screen and (maxwidht: 50.75rem) and (orientation: landscape) {
+	.outcome-pitStops {
+		height: 48%;
+		margin: 0.5em;
+	}
+
+	.search-pitStops {
+		top: 18%;
+		left: 30%;
+	}
+
+	.search-pitStops-loc {
+		top: 18%;
+	}
+
+	.outcome-pitStops-info h1 {
+		font-size: 1.3em;
+	}
+
+	.go-pitStops {
+		transform: translate(76%, -21%);
+	}
+
+	.go-weather {
+		transform: translate(38%, -23%);
+	}
+
+	.starsContainer img {
+		left: 11%;
+	}
+
+	.starsContainer p {
+		right: 9%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 18em;
+	}
+
+	.yelpLink {
+		font-size: 1em;
+	}
+}
+
 @media screen and (max-width: 50rem) and (orientation: portrait) {
 	.map-container,
 	.results {
 		margin: 0.8em 0;
 		width: 87%;
+		height: 47%;
 	}
 
 	.go-routes,
@@ -386,11 +609,103 @@ header {
 	}
 }
 
+@media screen and (max-width: 48rem) and (orientation: portrait) {
+	.search-pitStops {
+		left: 26%;
+	}
+
+	.go-pitStops {
+		transform: translate(95%, -33%);
+	}
+
+	.outcome-pitStops-img {
+		height: 80%;
+	}
+
+	.outcome-pitStops-info {
+		padding-top: 1%;
+	}
+
+	.outcome-pitStops-info h1 {
+		font-size: 1.2em;
+	}
+
+	.outcome-pitStops-info h3 {
+		font-size: 1em;
+	}
+
+	.starsContainer {
+		padding: 0;
+	}
+
+	.starsContainer img {
+		left: 15%;
+	}
+
+	.starsContainer p {
+		right: 2%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 18em;
+	}
+
+	.readMore {
+		padding-top: 1%;
+	}
+}
+
 @media screen and (max-width: 47rem) and (orientation: portrait) {
-	.go-routes,
 	.go-weather,
 	.go-pitStops {
 		transform: translate(173%, -43%);
+	}
+}
+
+@media screen and (max-width: 24rem) and (orientation: portrait) {
+	.outcome-pitStops-info {
+		height: 80%;
+	}
+
+	.outcome-pitStops-info h1 {
+		font-size: 1em;
+	}
+
+	.search-pitStops {
+		left: 1%;
+		top: 17%;
+	}
+
+	.search-pitStops-loc {
+		top: 17%;
+		left: 46%;
+	}
+
+	.findPitStops {
+		height: 78%;
+	}
+
+	.go-pitStops {
+		transform: translate(296%, -48%);
+	}
+
+	.starsContainer {
+		padding: 1%;
+	}
+
+	.starsContainer img {
+		left: 8%;
+		height: 61%;
+	}
+
+	.starsContainer p {
+		right: -7%;
+		font-size: 0.6em;
+	}
+
+	.yelpTradeMarkPic {
+		left: 10em;
+		bottom: 14%;
 	}
 }
 
@@ -407,21 +722,26 @@ footer {
 	color: #b7b7b7;
 }
 
+.icon-moto {
+	font-size: 0.7em;
+}
+
 /******************TABS**********************/
 
 .tab {
 	overflow: hidden;
 	border: 0.0625em solid #ccc;
-	background-color: #f1f1f1;
+	background-color: #ffffff;
 }
 
 .tab button {
 	background-color: inherit;
 	float: left;
-	border: none;
+	border-right: 0.125em solid #ccc;
 	outline: none;
 	cursor: pointer;
-	padding: 0.875em 5.8em;
+	padding: 0.825em 0;
+	width: 33.33%;
 	font-size: 1em;
 	font-weight: bold;
 	transition: 0.3s;
@@ -446,69 +766,69 @@ footer {
 
 @media screen and (max-width: 64rem) and (orientation: portrait) {
 	.tab button {
-		padding: 0.875em 7.5em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 52rem) and (orientation: landscape) {
 	.tab button {
-		padding: 0.875em 5.5em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 51rem) and (orientation: landscape) {
-	.tab button {
-		padding: 0.875em 5.5em;
+	.tabContent {
+		height: 80%;
 	}
 }
 
-@media screen and (max-width: 48rem) and (orientation: portrait) {
+/* @media screen and (max-width: 48rem) and (orientation: portrait) {
 	.tab button {
-		padding: 0.875em 4.9em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 46rem) and (orientation: landscape) {
 	.tab button {
-		padding: 0.875em 4.8em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 42rem) and (orientation: landscape) {
 	.tab button {
-		padding: 0.875em 4.1em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 40rem) and (orientation: landscape) {
 	.tab button {
-		padding: 0.875em 3.8em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 36rem) and (orientation: landscape) {
 	.tab button {
-		padding: 0.875em 3.2em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 26rem) and (orientation: portrait) {
 	.tab button {
-		padding: 0.875em 1.3em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 23rem) and (orientation: portrait) {
 	.tab button {
-		padding: 0.875em 1.2em;
+		padding: 0.875em 0;
 	}
 }
 
 @media screen and (max-width: 20rem) and (orientation: portrait) {
 	.tab button {
-		padding: 0.875em 0.85em;
+		padding: 0.875em 0;
 	}
-}
+} */
 
 /***************************** MAP ******************************/
 #map {
@@ -518,9 +838,14 @@ footer {
 	top: 7%;
 	left: 7%;
 	background-color: grey;
+	border: 0.125em solid #969696a6;
 }
 
 /********************** Right Panel for Map Directions - Draggable Directions ********************/
+.adp-directions {
+	width: 100%;
+}
+
 #right-panel {
 	width: 100%;
 	height: 100%;
@@ -552,6 +877,7 @@ footer {
 .forecast-img-time,
 .weather-info {
 	display: inline-block;
+	vertical-align: top;
 }
 
 .forecast-img-time {
@@ -568,10 +894,98 @@ footer {
 .weather-info {
 	height: 100%;
 	width: 70%;
+	padding-top: 1.5%;
 }
 
 .weather-info p {
 	margin: 0;
+	/* padding: 0.5%; */
+}
+
+.weather-icon {
+	height: 76%;
+}
+
+@media screen and (max-width: 86rem) and (orientation: landscape) {
+	.forecast-img-time p {
+		font-size: 1em;
+	}
+
+	.weather-info {
+		padding-top: 0.5%;
+	}
+
+	.weather-info p {
+		font-size: 1.15em;
+	}
+}
+
+@media screen and (max-width: 64rem) and (orientation: portrait) {
+	.weather-info {
+		padding-top: 0.1em;
+	}
+
+	.weather-info p {
+		padding: 0;
+		font-size: 0.8em;
+	}
+
+	.weather-icon {
+		height: 73%;
+	}
+}
+
+@media screen and (max-width: 64rem) and (orientation: landscape) {
+	.forecast-img-time p {
+		font-size: 0.75em;
+	}
+
+	.weather-info p {
+		font-size: 0.8em;
+	}
+}
+
+@media screen and (max-width: 48rem) and (orientation: portrait) {
+	.forecast-img-time {
+		width: 35%;
+	}
+
+	.weather-info {
+		width: 65%;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.7em;
+	}
+}
+
+/* @media screen and (max-width: 64rem) and (orientation: landscape) {
+	.weather-icon {
+		height: 76%;
+	}
+
+	.weather-info {
+		padding-top: 1.5%;
+	}
+
+	.weather-info p {
+		font-size: 1em;
+		padding: 0;
+	}
+} */
+
+@media screen and (max-width: 24rem) and (orientation: portrait) {
+	.weather-icon {
+		height: 68%;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.6em;
+	}
+
+	.weather-info p {
+		font-size: 0.7em;
+	}
 }
 
 /*************** Pages for Yelp Results (pagination) ****************/
@@ -687,5 +1101,26 @@ footer {
 	}
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+@media screen and (max-width: 86rem) and (orientation: landscape) {
+	.ldr-roller {
+		top: 49%;
+		left: 46%;
+	}
+}
+
+@media screen and (max-width: 64rem) and (orientation: portrait) {
+	.ldr-roller {
+		top: 71%;
+		left: 45%;
+	}
+}
+
+@media screen and (max-width: 24rem) and (orientation: portrait) {
+	.ldr-roller {
+		top: 75%;
+		left: 40%;
 	}
 }
