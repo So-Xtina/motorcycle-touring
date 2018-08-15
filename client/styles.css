@@ -5,7 +5,6 @@
 
 body {
 	margin: 0;
-	/* padding: 0; */
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
 	background-image: url("images/pexels-photo-110575.jpeg");
@@ -45,7 +44,6 @@ header {
 	height: 95%;
 	width: auto;
 	background: rgba(255, 255, 255, 0.815);
-	/* border-radius: 1em; */
 	margin: 0 auto;
 	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.333334em 1.25em 0 rgba(0, 0, 0, 0.19);
 }
@@ -57,10 +55,12 @@ header {
 	color: #bd8e00;
 }
 
+@media screen and (min-width: 86rem) and (max-width: 100rem) {
+}
+
 @media screen and (min-width: 64rem) and (orientation: portrait) {
 	.header-container {
 		height: 80%;
-		/* width: 95%; */
 	}
 }
 
@@ -72,7 +72,6 @@ header {
 
 	.title {
 		font-size: 1.5em;
-		padding: 0.3em;
 	}
 
 	.detail {
@@ -90,6 +89,12 @@ header {
 	}
 }
 
+@media screen and (max-width: 50.75rem) and (orientation: landscape) {
+	.title {
+		font-size: 1.5em;
+	}
+}
+
 @media screen and (max-width: 48rem) and (orientation: portrait) {
 	header {
 		padding-top: 1em;
@@ -97,7 +102,6 @@ header {
 
 	.header-container {
 		height: 90%;
-		/* width: 96%; */
 	}
 
 	.detail {
@@ -113,7 +117,6 @@ header {
 @media screen and (max-width: 26rem) and (orientation: portrait) {
 	.header-container {
 		height: 82%;
-		/* width: 88%; */
 	}
 
 	.detail {
@@ -165,9 +168,7 @@ header {
 	height: 10%;
 	width: 100%;
 	position: relative;
-	/* background-color: rgba(252, 235, 196, 0.8); */
 	background-color: rgb(149, 183, 217, 0.8);
-	/* border-radius: 1em 1em 0 0; */
 }
 
 .search-routes,
@@ -184,7 +185,6 @@ header {
 	top: 46%;
 	left: 30%;
 	text-align: center;
-	/* transform: translate(-60%, -50%); */
 }
 
 .search-weather {
@@ -323,7 +323,61 @@ header {
 	bottom: -37%;
 }
 
-@media screen and (max-width: 86rem) and (orientation: landscape) {
+@media screen and (min-width: 86rem) and (max-width: 100rem) {
+	.search span {
+		top: 7%;
+		left: 43%;
+	}
+
+	.search-weather {
+		top: 55%;
+		left: 37%;
+	}
+
+	.go-weather {
+		top: 54%;
+	}
+
+	.outcome-weather {
+		margin: 0.5em;
+	}
+
+	.search-pitStops {
+		top: 54%;
+		left: 26%;
+	}
+
+	.search-pitStops-loc {
+		top: 54%;
+		left: 50%;
+	}
+
+	.go-pitStops {
+		left: 74%;
+		top: 51%;
+	}
+
+	.starsContainer {
+		padding-top: 1%;
+	}
+
+	.starsContainer p {
+		right: 20%;
+		font-size: 0.8em;
+	}
+
+	.starsContainer img {
+		left: 5%;
+		height: 75%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 14em;
+		bottom: -29%;
+	}
+}
+
+@media screen and (max-width: 85.375rem) and (orientation: landscape) {
 	.container {
 		overflow-y: scroll;
 	}
@@ -529,6 +583,43 @@ header {
 		top: 30%;
 	}
 }
+@media screen and (max-width: 52rem) and (orientation: landscape) {
+	.search-pitStops {
+		top: 20%;
+		left: 29%;
+	}
+
+	.search-pitStops-loc {
+		top: 20%;
+	}
+
+	.go-pitStops {
+		left: 71%;
+		top: 14%;
+	}
+
+	.outcome-weather,
+	.outcome-pitStops {
+		height: 50%;
+	}
+
+	.findPitStops {
+		height: 75%;
+	}
+
+	.go-weather {
+		left: 61%;
+		top: 15%;
+	}
+
+	.starsContainer img {
+		left: 9%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 19em;
+	}
+}
 
 @media screen and (max-width: 51rem) and (orientation: landscape) {
 	.go-routes,
@@ -544,19 +635,21 @@ header {
 	}
 }
 
-@media screen and (maxwidht: 50.75rem) and (orientation: landscape) {
+@media screen and (max-width: 50.75rem) and (orientation: landscape) {
+	.outcome-weather,
 	.outcome-pitStops {
-		height: 48%;
-		margin: 0.5em;
+		height: 57%;
+		margin: 0.75em;
 	}
 
 	.search-pitStops {
-		top: 18%;
-		left: 30%;
+		top: 5%;
+		left: 29%;
 	}
 
 	.search-pitStops-loc {
-		top: 18%;
+		top: 5%;
+		left: 49%;
 	}
 
 	.outcome-pitStops-info h1 {
@@ -564,15 +657,15 @@ header {
 	}
 
 	.go-pitStops {
-		transform: translate(76%, -21%);
+		transform: translate(35%, -27%);
 	}
 
 	.go-weather {
-		transform: translate(38%, -23%);
+		transform: translate(40%, -32%);
 	}
 
 	.starsContainer img {
-		left: 11%;
+		left: 15%;
 	}
 
 	.starsContainer p {
@@ -580,7 +673,8 @@ header {
 	}
 
 	.yelpTradeMarkPic {
-		left: 18em;
+		left: 19em;
+		bottom: -37%;
 	}
 
 	.yelpLink {
@@ -662,6 +756,139 @@ header {
 	}
 }
 
+@media screen and (max-width: 46rem) and (orientation: landscape) {
+	.go-weather {
+		left: 60%;
+		top: 33%;
+	}
+
+	.outcome-weather {
+		height: 50%;
+		margin: 0.75em;
+	}
+
+	.search-pitStops {
+		top: 8%;
+		left: 25%;
+	}
+
+	.search-pitStops-loc {
+		top: 8%;
+		left: 49%;
+	}
+
+	.go-pitStops {
+		transform: translate(42%, -9%);
+	}
+
+	.starsContainer img {
+		left: 9%;
+	}
+
+	.starsContainer p {
+		right: 13%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 17em;
+		bottom: -36%;
+	}
+}
+
+@media screen and (max-width: 41.6875) and (orientation: landscape) {
+	.search-pitStops {
+		left: 25%;
+	}
+
+	.starsContainer img {
+		left: 3%;
+	}
+
+	.starsContainer p {
+		right: 6%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 16em;
+	}
+}
+
+@media screen and (max-width: 40rem) and (orientation: landscape) {
+	.search-pitStops {
+		top: 8%;
+	}
+
+	.go-pitStops {
+		transform: translate(63%, -9%);
+	}
+
+	.go-weather {
+		left: 62%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 16em;
+	}
+}
+
+@media screen and (max-width: 35.5rem) and (orientation: landscape) {
+	.search-pitStops {
+		top: 0%;
+		left: 20%;
+	}
+
+	.search-pitStops-loc {
+		top: 0%;
+		left: 49%;
+	}
+
+	.go-pitStops {
+		transform: translate(216%, -34%);
+	}
+
+	.yelpTradeMarkPic {
+		left: 14em;
+	}
+
+	.go-weather {
+		left: 63%;
+		top: 30%;
+	}
+}
+
+@media screen and (max-width: 26rem) and (orientation: portrait) {
+	.outcome-weather {
+		height: 47%;
+	}
+
+	.search-pitStops {
+		left: 3%;
+		top: 16%;
+	}
+
+	.search-pitStops-loc {
+		top: 16%;
+		left: 47%;
+	}
+
+	.go-pitStops {
+		transform: translate(306%, -43%);
+	}
+
+	.starsContainer img {
+		left: 5%;
+	}
+
+	.starsContainer p {
+		right: -8%;
+		font-size: 0.8em;
+	}
+
+	.yelpTradeMarkPic {
+		left: 11em;
+	}
+}
+
 @media screen and (max-width: 24rem) and (orientation: portrait) {
 	.outcome-pitStops-info {
 		height: 80%;
@@ -689,6 +916,10 @@ header {
 		transform: translate(296%, -48%);
 	}
 
+	.weather-info {
+		padding-top: 0.25em;
+	}
+
 	.starsContainer {
 		padding: 1%;
 	}
@@ -706,6 +937,34 @@ header {
 	.yelpTradeMarkPic {
 		left: 10em;
 		bottom: 14%;
+	}
+
+	.icon-moto,
+	.copyright {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 22.5rem) and (orientation: portrait) {
+	.search-pitStops {
+		left: -1%;
+		top: 6%;
+	}
+}
+
+@media screen and (max-width: 20rem) and (orientation: portrait) {
+	.search-pitStops {
+		left: -5%;
+		top: 5%;
+	}
+
+	.search-pitStops-loc {
+		top: 6%;
+		left: 46%;
+	}
+
+	.yelpTradeMarkPic {
+		left: 9em;
 	}
 }
 
@@ -782,54 +1041,6 @@ footer {
 	}
 }
 
-/* @media screen and (max-width: 48rem) and (orientation: portrait) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 46rem) and (orientation: landscape) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 42rem) and (orientation: landscape) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 40rem) and (orientation: landscape) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 36rem) and (orientation: landscape) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 26rem) and (orientation: portrait) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 23rem) and (orientation: portrait) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-}
-
-@media screen and (max-width: 20rem) and (orientation: portrait) {
-	.tab button {
-		padding: 0.875em 0;
-	}
-} */
-
 /***************************** MAP ******************************/
 #map {
 	height: 86%;
@@ -852,7 +1063,6 @@ footer {
 	font-family: "Roboto", "sans-serif";
 	line-height: 1.875em;
 	padding-left: 0.625em;
-	/* border: 0.1em solid red; */
 }
 
 #right-panel select,
@@ -899,14 +1109,27 @@ footer {
 
 .weather-info p {
 	margin: 0;
-	/* padding: 0.5%; */
 }
 
 .weather-icon {
 	height: 76%;
 }
 
-@media screen and (max-width: 86rem) and (orientation: landscape) {
+@media screen and (min-width: 86rem) and (max-width: 100rem) {
+	.weather-icon {
+		height: 65%;
+	}
+
+	.weather-info p {
+		font-size: 0.75em;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.65em;
+	}
+}
+
+@media screen and (max-width: 85.375rem) and (orientation: landscape) {
 	.forecast-img-time p {
 		font-size: 1em;
 	}
@@ -945,6 +1168,26 @@ footer {
 	}
 }
 
+@media screen and (max-width: 52rem) and (orientation: landscape) {
+	.weather-icon {
+		height: 70%;
+	}
+
+	.weather-info p {
+		font-size: 0.8em;
+	}
+}
+
+@media screen and (max-width: 50.75rem) and (orientation: landscape) {
+	.weather-icon {
+		height: 66%;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.65em;
+	}
+}
+
 @media screen and (max-width: 48rem) and (orientation: portrait) {
 	.forecast-img-time {
 		width: 35%;
@@ -959,20 +1202,50 @@ footer {
 	}
 }
 
-/* @media screen and (max-width: 64rem) and (orientation: landscape) {
+@media screen and (max-width: 46rem) and (orientation: landscape) {
 	.weather-icon {
-		height: 76%;
+		height: 67%;
 	}
 
-	.weather-info {
-		padding-top: 1.5%;
+	.forecast-img-time p {
+		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 40rem) and (orientation: landscape) {
+	.weather-info p {
+		font-size: 0.67em;
+	}
+}
+
+@media screen and (max-width: 35.5rem) and (orientation: landscape) {
+	.weather-icon {
+		height: 60%;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.65em;
 	}
 
 	.weather-info p {
-		font-size: 1em;
-		padding: 0;
+		font-size: 0.75em;
 	}
-} */
+}
+
+@media screen and (max-width: 26rem) and (orientation: portrait) {
+	.weather-icon {
+		height: 70%;
+	}
+
+	.forecast-img-time p {
+		font-size: 0.65em;
+	}
+
+	.weather-info p {
+		padding: 0.06em;
+		font-size: 0.75em;
+	}
+}
 
 @media screen and (max-width: 24rem) and (orientation: portrait) {
 	.weather-icon {
@@ -983,8 +1256,18 @@ footer {
 		font-size: 0.6em;
 	}
 
+	.weather-info {
+		padding-top: 0.75em;
+	}
+
 	.weather-info p {
 		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 20rem) and (orientation: portrait) {
+	.weather-info p {
+		font-size: 0.55em;
 	}
 }
 
