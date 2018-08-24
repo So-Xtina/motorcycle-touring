@@ -56,6 +56,10 @@ header {
 }
 
 @media screen and (min-width: 86rem) and (max-width: 100rem) {
+	.title,
+	.detail {
+		padding: 0.15em;
+	}
 }
 
 @media screen and (min-width: 64rem) and (orientation: portrait) {
@@ -67,7 +71,7 @@ header {
 @media screen and (min-width: 64rem) and (orientation: landscape) {
 	.title,
 	.detail {
-		padding: 0;
+		padding: 0.15em;
 	}
 
 	.title {
@@ -323,6 +327,11 @@ header {
 	bottom: -37%;
 }
 
+.no-data {
+	color: red;
+	margin: 7%;
+}
+
 @media screen and (min-width: 86rem) and (max-width: 100rem) {
 	.search span {
 		top: 7%;
@@ -336,6 +345,11 @@ header {
 
 	.go-weather {
 		top: 54%;
+	}
+
+	.findWeather,
+	.findPitStops {
+		height: 85%;
 	}
 
 	.outcome-weather {
@@ -362,7 +376,7 @@ header {
 	}
 
 	.starsContainer p {
-		right: 20%;
+		right: 9%;
 		font-size: 0.8em;
 	}
 
@@ -1083,6 +1097,15 @@ footer {
 	overflow: auto;
 }
 
+#routesMsg {
+	color: red;
+	margin: 7%;
+}
+
+#distance {
+	display: none;
+}
+
 /******************** Weather Results ********************/
 .forecast-img-time,
 .weather-info {
@@ -1266,6 +1289,10 @@ footer {
 }
 
 @media screen and (max-width: 20rem) and (orientation: portrait) {
+	.weather-info {
+		padding-top: 0.25em;
+	}
+
 	.weather-info p {
 		font-size: 0.55em;
 	}

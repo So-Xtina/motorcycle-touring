@@ -137,6 +137,7 @@ function addPitStops(data) {
 //Weather
 function addWeather(data) {
 	var weather = data.daily.data;
+
 	for (var i = 0; i < weather.length; i++) {
 		var resultDivs = document.createElement("div");
 		resultDivs.className = "outcome-weather";
@@ -440,7 +441,17 @@ function initMap(data) {
 
 				//calls the weather api as user location is found on page load
 				if (locationWeather === null && findData === null) {
-					getWeather(userLocation);
+					if (!userLocation) {
+						var noData = document.createElement("div");
+						noData.className = "no-data";
+						var noContent = document.createTextNode("Please allow your location for the Weather...");
+						noData.appendChild(noContent);
+
+						var newDiv = document.querySelector("div.findWeather");
+						newDiv.appendChild(noData);
+					} else {
+						getWeather(userLocation);
+					}
 				}
 
 				//created a custom user icon for geolocation
@@ -511,7 +522,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //displaying the route
 function displayRoute(origin, destination, service, display) {
-	document.getElementById("routes").style.display = "block";
+	clearElement();
+
 	service.route(
 		{
 			origin: origin,
@@ -521,6 +533,8 @@ function displayRoute(origin, destination, service, display) {
 		},
 		function(response, status) {
 			if (status === "OK") {
+				document.getElementById("routesMsg").style.display = "none";
+				document.getElementById("distance").style.display = "block";
 				display.setDirections(response);
 				userMarker.setVisible(false);
 				currentMarker.setVisible(false);
@@ -529,6 +543,19 @@ function displayRoute(origin, destination, service, display) {
 			}
 		}
 	);
+}
+
+//set previous element to display none and to set routes as the display and active class
+function clearElement() {
+	var tabContent = document.getElementsByClassName("tabContent");
+
+	for (i = 0; i < tabContent.length; i++) {
+		tabContent[i].style.display = "none";
+	}
+
+	var routes = document.getElementById("routes");
+
+	routes.style.display = "block";
 }
 
 //the total distance from user location to the destination
