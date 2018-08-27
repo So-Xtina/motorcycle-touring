@@ -356,6 +356,26 @@ function getBusiness(offset) {
 	$.ajax(options);
 }
 
+/********************* Input Validation ********************/
+
+function checkYelpForm() {
+	var val = document.getElementById("search-p").value;
+	var loc = document.getElementById("location-p").value;
+
+	if (val === "" && loc === "") {
+		var fillBlank = document.createElement("div");
+		fillBlank.className = "blankField";
+		var fillContent = document.createTextNode("Please fill out both fields before proceeding...");
+		fillBlank.appendChild(fillContent);
+
+		var blankDiv = document.querySelector("div.findPitStops");
+		blankDiv.append(fillBlank);
+	} else {
+		document.getElementById("go-pit").onclick = function() {
+			getBusiness();
+		};
+	}
+}
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
 var map, infoWindow, popup, Popup, userLocation, geocoder;

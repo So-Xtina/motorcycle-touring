@@ -134,6 +134,12 @@ header {
 	}
 }
 
+/************ Input Validation **************/
+.blankField {
+	color: red;
+	margin: 7%;
+}
+
 /***************Main-Page******************/
 
 .main-page {
@@ -273,6 +279,10 @@ header {
 .outcome-pitStops-info h1,
 .outcome-pitStops-info h3 {
 	margin: 0;
+}
+
+.outcome-pitStops-info h1 {
+	font-size: 1.25em;
 }
 
 .outcome-pitStops-img img {
@@ -1433,4 +1443,8 @@ footer {
 		top: 75%;
 		left: 40%;
 	}
+}
+
+/************* Print Media Queries ****************/
+@media print {
 }
