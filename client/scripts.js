@@ -203,11 +203,15 @@ function addWeather(data) {
 
 function emptyOutResultsYelp() {
 	document.getElementById("go-pit").addEventListener("click", function() {
-		document.querySelector("div.findPitStops").innerHTML = "";
-		searchValue = "";
-		searchLocation = "";
+		reset();
 		addPitStops();
 	});
+}
+
+function reset() {
+	document.querySelector("div.findPitStops").innerHTML = "";
+	searchValue = "";
+	searchLocation = "";
 }
 
 /******************** Weather Forecast Icons **********************/
@@ -356,7 +360,9 @@ function getBusiness(offset) {
 	$.ajax(options);
 }
 
-/********************* Input Validation ********************/
+/********************* Yelp Input Validation ********************/
+//created a check point to make sure that the user enters a search and location value in the
+//input fields
 
 function checkYelpForm() {
 	var val = document.getElementById("search-p").value;
@@ -371,15 +377,15 @@ function checkYelpForm() {
 		var blankDiv = document.querySelector("div.findPitStops");
 		blankDiv.append(fillBlank);
 	} else {
-		document.getElementById("go-pit").onclick = function() {
-			getBusiness();
-		};
+		reset();
+		getBusiness();
 	}
 }
 /********************* Google Maps API **********************/
 //creating markers for the map and grabbing geolocation of user/directions for each yelp location
 var map, infoWindow, popup, Popup, userLocation, geocoder;
 var currentMarker = null;
+var marker = null;
 var locationWeather = null;
 function initMap(data) {
 	console.log("initMap data: ", data);
@@ -402,6 +408,8 @@ function initMap(data) {
 			anchor: new google.maps.Point(0, 32)
 		};
 
+		var bounds = new google.maps.LatLngBounds();
+
 		for (var i = 0; i < data.length; i++) {
 			var coords = data[i]["coordinates"];
 			var latLng = new google.maps.LatLng(coords["latitude"], coords["longitude"]);
@@ -411,10 +419,14 @@ function initMap(data) {
 				icon: image
 			});
 
+			//extend the bounds to include each marker's position
+			bounds.extend(marker.position);
+
 			var infoWindow = new google.maps.InfoWindow();
 
 			var content = data[i]["name"];
 			var currentInfoWindow = null;
+
 			google.maps.event.addListener(
 				marker,
 				"click",
@@ -438,6 +450,10 @@ function initMap(data) {
 					};
 				})(marker, content, infoWindow)
 			);
+
+			//now fit the map into the newly inclusive bounds
+			console.log("this is the bounds: ", bounds);
+			map.fitBounds(bounds);
 		}
 	}
 
@@ -457,7 +473,11 @@ function initMap(data) {
 				var infoWindow = new google.maps.InfoWindow();
 				userLocation = pos;
 				infoWindow.setPosition(pos);
-				map.setCenter(pos);
+
+				//if marker is equal to null then set the center of the map to the users position
+				if (marker === null) {
+					map.setCenter(pos);
+				}
 
 				//calls the weather api as user location is found on page load
 				if (locationWeather === null && findData === null) {
@@ -543,6 +563,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //displaying the route
 function displayRoute(origin, destination, service, display) {
 	clearElement();
+	document.getElementById("routesMsg").style.display = "none";
+	document.getElementById("loader").style.display = "block";
 
 	service.route(
 		{
@@ -553,7 +575,7 @@ function displayRoute(origin, destination, service, display) {
 		},
 		function(response, status) {
 			if (status === "OK") {
-				document.getElementById("routesMsg").style.display = "none";
+				document.getElementById("loader").style.display = "none";
 				document.getElementById("distance").style.display = "block";
 				display.setDirections(response);
 				userMarker.setVisible(false);
